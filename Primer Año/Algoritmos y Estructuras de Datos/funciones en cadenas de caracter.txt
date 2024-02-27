@@ -1,0 +1,13 @@
+FUNCIONES DE CADENAS DE CARACTERES 
+librerias (cstring, stdlib.h, string.h)
+
+strcmp(arg1,arg2); //compara dos cadenas char y devuelve un 0 si son iguales, ademas se puede comparar cual esta antes alfabeticamente, si el primero va antes alfabeticamente devuelve un -1, y si va despues devuelve un 1
+strcpy(arg1,arg2); //copia lo que esta en arg2 hacia arg1
+strlen(arg); //devuelve la cantidad de caracteres que posee la cadena
+strcat(arg1,arg2); //concatena dos cadenas de caracteres
+strrev(arg); //invierte la cadena y la reemplaza por ella misma
+strupr(arg); //convierte cadena de caracteres a MAYUSCULAS
+strlwr(arg); //convierte cadena de caracteres a minusculas
+atoi() y atof() //solamente funcionan con stdlib.h
+atoi(arg); //convierte cadena de caracteres en numeros de tipo int solo si tiene numeros en ella
+atof(arg); //convierte cadena de caracteres en numeros de tipo float solo si tiene numeros en ella

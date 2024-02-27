@@ -1,0 +1,45 @@
+INICIO:
+abir DOSBOX
+mount d c:\debug
+D:
+debug
+
+SALIR:
+exit
+
+OPERACIONES
+a: permite programar en assembler
+r: muestra los registros visibles por el programador en modo real, y, a su vez, modificarlos
+t: permite ejecutar una/s instruccion/es, y posteriormente, ver el resultado de dicha/s instruccion/es
+e: examinar datos y modificar contenidos de posiciones de memoria
+q: salir del debug
+
+INSTRUCCIONES:
+mov: mover{destino},{fuente} y lo pisa
+add: suma {sumando1},{sumando2} y lo guarda en sumando1
+sub: resta {restando1},{restando2} y lo guarda en restando1
+inc: incrementa en 1{destino}
+loop: repetir instruccion{direccion de la instruccion} la cantidad de veces que diga el registro cx
+
+FLAGS:
+simbologia:
+(Bandera) | (ValorEncendido) | (ValorApagado)
+FLAG NAME------------SET---------------CLEAR
+---------------------------------------------------
+Overflow-------------------ov-------------------nv
+Direction-------------------dn-------------------up (increment)
+Interrupt--------------------ei (enabled)------di (disabled)
+Sign--------------------------ng (neg)-----------pl (positive)
+Zero--------------------------zr--------------------nz
+Auxiliary carry-------------ac-------------------na
+Parity-------------------------pe (even)---------po (odd)
+Carry--------------------------cy-------------------nc
+
+NOTAS:
+para que se ejecute una instruccion, el ip debe apuntar a la misma direccion en la que yo realice la instruccion.
+si quiero cambiar a donde apunta ip, hago r ip.
+
+direccionamiento inmediato: no accede a posiciones de memoria.
+direccionamiento directo: se especifica la direccion de memoria donde se ubica el dato.
+
+cada registro almacena 16 bits, en little endiam, por lo tanto cuando almaceno lo que hay en una direccion de memoria, almacena lo de la direccion enviada y la siguiente, y lo da vuelta

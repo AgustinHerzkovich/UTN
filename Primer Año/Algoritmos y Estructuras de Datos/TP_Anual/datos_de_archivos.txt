@@ -1,0 +1,282 @@
+PACIENTES:
+    id_1: 1
+    nomyape_1: Pedro_Gonzalez
+    fecha_1: 19921105
+    dni_1: 78901234
+    telefono_1: 555789012
+
+    id_2: 2
+    nomyape_2: Diego_Torres
+    fecha_2: 19980401
+    dni_2: 90123456
+    telefono_2: 555901234
+
+    id_3: 3
+    nomyape_3: Ana_Lopez
+    fecha_3: 19750214
+    dni_3: 67890123
+    telefono_3: 555678901
+
+    id_4: 4
+    nomyape_4: Roberto_Sanchez
+    fecha_4: 19800922
+    dni_4: 56789012
+    telefono_4: 555567890
+
+    id_5: 5
+    nomyape_5: Laura_Martinez
+    fecha_5: 19950310
+    dni_5: 123678
+    telefono_5: 555456789
+
+    id_6: 6
+    nomyape_6: Carlos_Rodriguez
+    fecha_6: 19780703
+    dni_6: 236789
+    telefono_6: 555345678
+
+    id_7: 7
+    nomyape_7: Juan_Perez
+    fecha_7: 19900515
+    dni_7: 367890
+    telefono_7: 555123456
+
+    id_8: 8
+    nomyape_8: Maria_Gomez
+    fecha_8: 19851228
+    dni_8: 45678901
+    telefono_8: 555234567
+
+    id_9: 9
+    nomyape_9: Sofia_Fernandez
+    fecha_9: 19870619
+    dni_9: 89012345
+    telefono_9: 555890123
+
+    id_10: 10
+    nomyape_10: Elena_Ramirez
+    fecha_10: 19700830
+    dni_10: 01234567
+    telefono_10: 555012345
+
+    id_11: 11
+    nomyape_11: Juan_Martinez
+    fecha_11: 19821117
+    dni_11: 45678902
+    telefono_11: 555234562
+
+    id_12: 12
+    nomyape_12: Carmen_Lopez
+    fecha_12: 19940203
+    dni_12: 34567891
+    telefono_12: 555123455
+
+    id_13: 13
+    nomyape_13: Luis_Rodriguez
+    fecha_13: 19860307
+    dni_13: 23456788
+    telefono_13: 555345679
+
+    id_14: 14
+    nomyape_14: Patricia_Sanchez
+    fecha_14: 19721112
+    dni_14: 90123451
+    telefono_14: 555901235
+
+    id_15: 15
+    nomyape_15: Andrea_Gomez
+    fecha_15: 19970422
+    dni_15: 78901232
+    telefono_15: 555789011
+ 
+MÉDICOS:
+    id_1: 100
+    nomyape_1: Juan_Sanchez
+    matricula_1: 54321
+    especialidad_1: Neurologia
+
+    id_2: 101
+    nomyape_2: Ana_Rodriguez
+    matricula_2: 23456
+    especialidad_2: Pediatria
+
+    id_3: 102
+    nomyape_3: Martin_Perez
+    matricula_3: 98765
+    especialidad_3: Cirugia
+
+    id_4: 103
+    nomyape_4: Laura_Fernandez
+    matricula_4: 87654
+    especialidad_4: Dermatologia
+
+    id_5: 104
+    nomyape_5: Carlos_Gomez
+    matricula_5: 65432
+    especialidad_5: Cardiologia
+
+    id_6: 105
+    nomyape_6: Maria_Lopez
+    matricula_6: 76544
+    especialidad_6: Ginecologia
+
+    id_7: 106
+    nomyape_7: Andres_Torres
+    matricula_7: 43210
+    especialidad_7: Oftalmologia
+
+    id_8: 107
+    nomyape_8: Carmen_Ramirez
+    matricula_8: 76543
+    especialidad_8: Ortopedia
+
+    id_9: 108
+    nomyape_9: Sofia_Perez
+    matricula_9: 87659
+    especialidad_9: Psiquiatria
+
+    id_10: 109
+    nomyape_10: Diego_Fernandez
+    matricula_10: 54324
+    especialidad_10: Urologia
+
+ATENCIONES:
+    id_atencion_1: 1000
+    fecha_1: 20231003
+    id_medico_1: 100
+    id_paciente_1: 3
+    diagnostico_1: Migraña
+    id_medicamento_1: 12345
+
+    id_atencion_2: 1001
+    fecha_2: 20231009
+    id_medico_2: 103
+    id_paciente_2: 5
+    diagnostico_2: Urticaria
+    id_medicamento_2: 23456
+
+    id_atencion_3: 1002
+    fecha_3: 20231006
+    id_medico_3: 102
+    id_paciente_3: 9
+    diagnostico_3: Apendicitis
+    id_medicamento_3: 78901
+
+    id_atencion_4: 1003
+    fecha_4: 20231002
+    id_medico_4: 101
+    id_paciente_4: 1
+    diagnostico_4: Asma
+    id_medicamento_4: 65432
+
+    id_atencion_5: 1004
+    fecha_5: 20231005
+    id_medico_5: 104
+    id_paciente_5: 8
+    diagnostico_5: Arritmia
+    id_medicamento_5: 98765
+
+    id_atencion_6: 1005
+    fecha_6: 20231004
+    id_medico_6: 103
+    id_paciente_6: 4
+    diagnostico_6: Melanoma
+    id_medicamento_6: 5678
+
+    id_atencion_7: 1006
+    fecha_7: 20231008
+    id_medico_7: 100
+    id_paciente_7: 2
+    diagnostico_7: Epilepsia
+    id_medicamento_7: 2345
+
+    id_atencion_8: 1007
+    fecha_8: 20231007
+    id_medico_8: 101
+    id_paciente_8: 7
+    diagnostico_8: Fiebre
+    id_medicamento_8: 567
+
+    id_atencion_9: 1008
+    fecha_9: 20231001
+    id_medico_9: 102
+    id_paciente_9: 10
+    diagnostico_9: Peritonitis
+    id_medicamento_9: 890
+
+    id_atencion_10: 1009
+    fecha_10: 20231010
+    id_medico_10: 104
+    id_paciente_10: 7
+    diagnostico_10: Hipertension
+    id_medicamento_10: 4567
+
+    id_atencion_11: 1010
+    fecha_11: 20231011
+    id_medico_11: 101
+    id_paciente_11: 9
+    diagnostico_11: Bronquitis
+    id_medicamento_11: 65432
+
+    id_atencion_12: 1011
+    fecha_12: 20231012
+    id_medico_12: 106
+    id_paciente_12: 5
+    diagnostico_12: Conjuntivitis
+    id_medicamento_12: 2345
+
+    id_atencion_13: 1012
+    fecha_13: 20231013
+    id_medico_13: 100
+    id_paciente_13: 3
+    diagnostico_13: Parkinson
+    id_medicamento_13: 12345
+
+    id_atencion_14: 1013
+    fecha_14: 20231014
+    id_medico_14: 103
+    id_paciente_14: 5
+    diagnostico_14: Dermatitis
+    id_medicamento_14: 23456
+
+    id_atencion_15: 1014
+    fecha_15: 20231015
+    id_medico_15: 102
+    id_paciente_15: 9
+    diagnostico_15: Gastroenteritis
+    id_medicamento_15: 78901
+
+    id_atencion_16: 1015
+    fecha_16: 20231016
+    id_medico_16: 101
+    id_paciente_16: 1
+    diagnostico_16: Sinusitis
+    id_medicamento_16: 65432
+
+    id_atencion_17: 1016
+    fecha_17: 20231017
+    id_medico_17: 104
+    id_paciente_17: 8
+    diagnostico_17: Diabetes
+    id_medicamento_17: 98765
+
+    id_atencion_18: 1017
+    fecha_18: 20231018
+    id_medico_18: 103
+    id_paciente_18: 4
+    diagnostico_18: Hipotiroidismo
+    id_medicamento_18: 5678
+
+    id_atencion_19: 1018
+    fecha_19: 20231019
+    id_medico_19: 100
+    id_paciente_19: 2
+    diagnostico_19: Epigastralgia
+    id_medicamento_19: 2345
+
+    id_atencion_20: 1019
+    fecha_20: 20231020
+    id_medico_20: 101
+    id_paciente_20: 7
+    diagnostico_20: Insomnio
+    id_medicamento_20: 567
