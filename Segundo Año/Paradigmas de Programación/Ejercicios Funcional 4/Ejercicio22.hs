@@ -1,1 +1,3 @@
-
+{-
+Investigar lo que hace la función takeWhile/2, que está incluida en el prelude. Preguntar primero el tipo, y después hacer pruebas. Ayudarse con el nombre. 
+-}

@@ -7,10 +7,11 @@ promedio lista = sum lista / fromIntegral (length lista)
 promedios :: (Num b, Fractional b) => [[b]] -> [b]
 promedios = map promedio
 
-filtrar :: (a->Bool) -> [[a]] -> [[a]]
-filtrar 
+filtrarSublistas :: (a -> Bool) -> [[a]] -> [[a]]
+filtrarSublistas condicion = map (filter condicion)
+
 promediosSinAplazos :: (Num b, Fractional b, Ord b) => [[b]] -> [b]
-promediosSinAplazos lista = promedios (filter (>4) lista)
+promediosSinAplazos lista = promedios (filtrarSublistas (> 4) lista)
 
 {-
 Armar una función promediosSinAplazos que dada una lista de listas
