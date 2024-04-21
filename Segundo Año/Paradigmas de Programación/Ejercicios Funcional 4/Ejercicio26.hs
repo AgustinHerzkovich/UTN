@@ -1,3 +1,9 @@
+lluviasEnero :: [Int]
+lluviasEnero = [0, 2, 5, 1, 34, 2, 0, 21, 0, 0, 0, 5, 9, 18, 4, 0]
+
+rachasLluvia :: [Int] -> [Int]
+rachasLluvia  = dropWhile (==0) 
+
 {-
 Se tiene información de las lluvias en un determinado mes por Ej: se conoce la siguiente información: 
 lluviasEnero = [0,2,5,1,34,2,0,21,0,0,0,5,9,18,4,0]

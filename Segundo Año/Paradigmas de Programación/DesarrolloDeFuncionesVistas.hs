@@ -156,3 +156,13 @@ todosCumplen criterio lista = filter criterio lista == lista
 -- any
 algunoCumple :: (Eq a) => (a -> Bool) -> [a] -> Bool
 algunoCumple criterio  = not . null . filter criterio
+
+-- take
+
+-- concat
+
+-- maximum
+
+-- minimum
+
+-- takeWhile
