@@ -2,6 +2,9 @@
 by Tadeo Sorrentino && Agustín Herzkovich
 2024
 -}
+import Data.List
+import Data.Text.Encoding (validateUtf8More)
+import Text.Show.Functions
 
 -- odd
 esImpar :: (Integral a) => a -> Bool
@@ -86,12 +89,12 @@ esVacia :: [a] -> Bool
 esVacia = (0 ==) . length
 
 -- ++
-concatenacion :: [a] -> [a] -> [a]
-concatenacion lista1 = agregarRecursiva (reverse lista1)
+concatenacionSimple :: [a] -> [a] -> [a]
+concatenacionSimple = agregarRecursiva
 
 agregarRecursiva :: [a] -> [a] -> [a]
 agregarRecursiva lista1 lista2
-  | null lista1 = lista2
+  | null lista1 = reverse lista2
   | otherwise = agregarRecursiva (tail lista1) (head lista1 : lista2)
 
 -- reverse
@@ -157,12 +160,49 @@ todosCumplen criterio lista = filter criterio lista == lista
 algunoCumple :: (Eq a) => (a -> Bool) -> [a] -> Bool
 algunoCumple criterio = not . null . filter criterio
 
+-- drop
+quitarPrimerosN :: Int -> [a] -> [a]
+quitarPrimerosN n [] = []
+quitarPrimerosN n lista
+  | tamaño == n + 1 = lista
+  | otherwise = quitarPrimerosN n (tail lista)
+  where
+    tamaño = length lista
+
 -- take
+tomar :: Int -> [a] -> [a]
+tomar n lista = extraerLosNPrimeros n lista []
+
+extraerLosNPrimeros :: Int -> [a] -> [a] -> [a]
+extraerLosNPrimeros n [] [] = []
+extraerLosNPrimeros n lista1 lista2
+  | tamaño == n + 1 = reverse lista2
+  | otherwise = extraerLosNPrimeros n (tail lista1) (head lista1 : lista2)
+  where
+    tamaño = length lista1
 
 -- concat
+concatenacionDoble :: [[a]] -> [a]
+concatenacionDoble listaDeListas = compresor listaDeListas []
+
+compresor :: [[a]] -> [a] -> [a]
+compresor [[]] [] = []
+compresor listaDeListas listaCompacta
+  | null listaDeListas = listaCompacta
+  | otherwise = compresor (tail listaDeListas) ((reverse . head) listaDeListas `concatenacionSimple` listaCompacta)
 
 -- maximum
+maximo2 :: (Num a, Ord a) => [a] -> a
+maximo2 lista = piola lista (head lista) (>)
 
 -- minimum
+minimo2 :: (Num a, Ord a) => [a] -> a
+minimo2 lista = piola lista (head lista) (<)
+
+piola :: (Num a, Ord a) => [a] -> a -> (a -> a -> Bool) -> a
+piola lista valor operador
+  | null lista = valor
+  | head lista `operador` valor = piola (tail lista) (head lista) (operador)
+  | otherwise = piola (tail lista) valor (operador)
 
 -- takeWhile
