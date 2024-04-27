@@ -4,6 +4,7 @@ by Tadeo Sorrentino && Agustín Herzkovich
 -}
 import Data.List
 import Data.Text.Encoding (validateUtf8More)
+import System.Win32 (xBUTTON1)
 import Text.Show.Functions
 
 -- odd
@@ -59,6 +60,19 @@ listaAux = [1 .. 5]
 -- flip
 voltear :: (a -> b -> c) -> b -> a -> c
 voltear f x y = f y x
+
+-- abs
+modulo :: (Ord a, Num a) => a -> a
+modulo x
+  | x >= 0 = x
+  | x < 0 = -x
+
+-- signum
+signo :: (Ord a1, Num a1, Num a2) => a1 -> a2
+signo 0 = 0
+signo x
+  | x > 0 = 1
+  | x < 0 = -1
 
 -- length
 cantidadDeElementos :: [a] -> Int
@@ -206,3 +220,24 @@ piola lista valor operador
   | otherwise = piola (tail lista) valor (operador)
 
 -- takeWhile
+tomarMientras :: (a -> Bool) -> [a] -> [a]
+tomarMientras condicion lista = avanzar condicion lista []
+
+avanzar :: (a -> Bool) -> [a] -> [a] -> [a]
+avanzar condicion lista1 lista2
+  | (condicion.head) lista1 = avanzar condicion (tail lista1) (head lista1 : lista2)
+  | otherwise = reverse lista2
+
+--dropWhile
+quitarMientras :: (a -> Bool) -> [a] -> [a]
+quitarMientras condicion lista
+  | (condicion.head) lista = quitarMientras condicion (tail lista)
+  | otherwise = lista
+
+-- fst
+primero :: (a, b) -> a
+primero (x, _) = x
+
+-- snd
+segundo :: (a, b) -> b
+segundo (_, y) = y

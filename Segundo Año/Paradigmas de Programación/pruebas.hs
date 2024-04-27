@@ -1,4 +1,4 @@
-import Data.List
+
 
 -- fibonacci
 fibonacci :: (Eq a, Num a) => a -> a
@@ -33,49 +33,3 @@ datosPrincipales :: Persona -> (String, Int)
 datosPrincipales personita = (nombre personita, edad personita)
 -}
 
-data Elemento = Fuego | Psiquico | Acero deriving (Eq, Show)
-
-data TipoPokemon = Unico {primario :: Elemento}
-                  | Doble {primario :: Elemento, secundario :: Elemento}
-  deriving (Show, Eq)
-
-data Pokemon = Pokemon
-  { nombre :: String,
-    familia :: String,
-    tipopokemon :: [TipoPokemon]
-  }
-  deriving (Show)
-
-conseguirElementos :: Pokemon -> [Elemento]
-conseguirElementos (Pokemon _ _ [Unico primario]) = [primario]
-conseguirElementos (Pokemon _ _ [Doble primario secundario]) = [primario, secundario]
-
-elementosComunes :: Pokemon -> Pokemon -> [Elemento]
-elementosComunes pokemon1 pokemon2 = conseguirElementos pokemon1 `intersect` conseguirElementos pokemon2
-
-sonCompatibles :: Pokemon -> Pokemon -> Bool
-sonCompatibles pokemon1 = not . null . elementosComunes pokemon1
-
-poke1 :: Pokemon
-poke1 =
-  Pokemon
-    { nombre = "Charmander",
-      familia = "Lagarto",
-      tipopokemon = [Unico Fuego]
-    }
-
-poke2 :: Pokemon
-poke2 =
-  Pokemon
-    { nombre = "Metagross",
-      familia = "Acero",
-      tipopokemon = [Doble Psiquico Acero]
-    }
-
-poke3 :: Pokemon
-poke3 =
-  Pokemon
-    { nombre = "Heatran",
-      familia = "Fuego",
-      tipopokemon = [Unico Acero]
-    }
