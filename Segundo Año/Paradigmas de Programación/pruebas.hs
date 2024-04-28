@@ -1,12 +1,9 @@
-
-
 -- fibonacci
 fibonacci :: (Eq a, Num a) => a -> a
 fibonacci 0 = 0
 fibonacci 1 = 1
 fibonacci n = (n - 1) + (n - 2)
 
-{-
 -- tipos algebraicos
 data Persona = Persona
   { nombre :: String,
@@ -31,5 +28,3 @@ juan =
     }-- tupla que solo devuelve el nombre y edad de una persona dada
 datosPrincipales :: Persona -> (String, Int)
 datosPrincipales personita = (nombre personita, edad personita)
--}
-
