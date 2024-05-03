@@ -78,21 +78,39 @@ sería necesario cambiar algo de lo desarrollado en los puntos anteriores? Justi
 Si una carrera se conformara por infinitos autos, ¿sería posible usar las funciones del punto 1b y 1c de modo que terminen de evaluarse? Justificar.
 -}
 
-data Auto = Auto {
-    color :: String,
+data Auto = Auto
+  { color :: String,
     velocidad :: Int,
     distanciaRecorrida :: Int
-} deriving(Eq)
+  }
+  deriving (Eq, Ord, Show)
 
-data Carrera = Carrera{
-    estadoActual :: [Auto]
-}
+newtype Carrera = Carrera [Auto]
 
 estanCerca :: Auto -> Auto -> Bool
-estanCerca auto1 auto2 = (auto1 /= auto2) && ((abs . (-) distanciaRecorrida auto1) distanciaRecorrida auto2)
+estanCerca auto1 auto2 = (auto1 /= auto2) && ((< 10) . abs $ distanciaRecorrida auto1 - distanciaRecorrida auto2)
 
 vaTranquilo :: Auto -> Carrera -> Bool
-vaTranquilo auto carrera = (==) (distanciaRecorrida auto) ((maximum . estadoActual) carrera)
+vaTranquilo auto (Carrera autos) = distanciaRecorrida auto == maximum (map distanciaRecorrida autos)
 
 puesto :: Auto -> Carrera -> Int
-puesto auto carrera = 
+puesto auto (Carrera autos) = acumulador (map distanciaRecorrida autos) (distanciaRecorrida auto) 1
+
+acumulador :: (Ord t1, Num t2) => [t1] -> t1 -> t2 -> t2
+acumulador lista valor contador
+  | null lista = contador
+  | head lista > valor = acumulador (tail lista) valor (contador + 1)
+  | otherwise = acumulador (tail lista) valor contador
+
+--pruebas
+auto1 :: Auto
+auto1 = Auto {color = "Rojo", velocidad = 100, distanciaRecorrida = 200}
+
+auto2 :: Auto
+auto2 = Auto {color = "Azul", velocidad = 120, distanciaRecorrida = 100}
+
+auto3 :: Auto
+auto3 = Auto {color = "Verde", velocidad = 90, distanciaRecorrida = 150}
+
+carrera :: Carrera
+carrera = Carrera [auto1, auto2, auto3]
