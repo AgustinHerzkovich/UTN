@@ -77,7 +77,6 @@ Si se quisiera agregar un nuevo power up, un misil teledirigido, que para poder 
 sería necesario cambiar algo de lo desarrollado en los puntos anteriores? Justificar.
 Si una carrera se conformara por infinitos autos, ¿sería posible usar las funciones del punto 1b y 1c de modo que terminen de evaluarse? Justificar.
 -}
-
 data Auto = Auto
   { color :: String,
     velocidad :: Int,
@@ -102,7 +101,7 @@ acumulador lista valor contador
   | head lista > valor = acumulador (tail lista) valor (contador + 1)
   | otherwise = acumulador (tail lista) valor contador
 
---pruebas
+-- pruebas
 auto1 :: Auto
 auto1 = Auto {color = "Rojo", velocidad = 100, distanciaRecorrida = 200}
 
@@ -114,3 +113,9 @@ auto3 = Auto {color = "Verde", velocidad = 90, distanciaRecorrida = 150}
 
 carrera :: Carrera
 carrera = Carrera [auto1, auto2, auto3]
+
+correr :: Auto -> Int -> Auto
+correr auto tiempo = auto {velocidad = distanciaRecorrida auto + tiempo * velocidad auto}
+
+bajarVelocidad :: Auto -> Int -> Auto
+bajarVelocidad auto cantidad = auto {velocidad = max 0 (velocidad auto - cantidad)}
