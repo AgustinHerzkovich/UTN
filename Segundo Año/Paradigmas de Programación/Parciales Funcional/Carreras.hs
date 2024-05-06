@@ -77,7 +77,6 @@ Si se quisiera agregar un nuevo power up, un misil teledirigido, que para poder 
 sería necesario cambiar algo de lo desarrollado en los puntos anteriores? Justificar.
 Si una carrera se conformara por infinitos autos, ¿sería posible usar las funciones del punto 1b y 1c de modo que terminen de evaluarse? Justificar.
 -}
-
 data Auto = Auto
   { color :: String,
     velocidad :: Int,
@@ -115,14 +114,16 @@ auto3 = Auto {color = "Verde", velocidad = 90, distanciaRecorrida = 105}
 carrera :: Carrera
 carrera = Carrera [auto1, auto2, auto3]
 
-correr :: Auto -> Int -> Auto
-correr auto tiempo = auto {velocidad = distanciaRecorrida auto + tiempo * velocidad auto}
+correr :: Int -> Auto -> Auto
+correr tiempo auto = auto {velocidad = distanciaRecorrida auto + tiempo * velocidad auto, distanciaRecorrida = distanciaRecorrida auto + (((distanciaRecorrida auto + tiempo * velocidad auto) - velocidad auto) * tiempo)}
 
 bajarVelocidad :: Int -> Auto -> Auto
 bajarVelocidad cantidad auto = auto {velocidad = max 0 (velocidad auto - cantidad)}
 
 afectarALosQueCumplen :: (a -> Bool) -> (a -> a) -> [a] -> [a]
 afectarALosQueCumplen criterio efecto lista = (map efecto . filter criterio) lista ++ filter (not . criterio) lista
+
+--data PowerUP = Terremoto{} | Miguelitos{} | Jetpack
 
 terremoto :: Auto -> Carrera -> Carrera
 terremoto auto (Carrera autos) = Carrera (afectarALosQueCumplen (estanCerca auto) (bajarVelocidad 50) autos)
@@ -132,32 +133,18 @@ miguelitos auto (Carrera autos) cantidad = Carrera (afectarALosQueCumplen (\a ->
   where
     puestoauto = puesto (Carrera autos) auto
 
---jetpack :: Auto -> Carrera -> Int -> Carrera
+jetpack :: Auto -> Carrera -> Int -> Carrera
+jetpack auto (Carrera autos) tiempo =
+  Carrera (afectarALosQueCumplen (== auto) efectoJetPack autos)
+  where
+    efectoJetPack a
+      | a == auto = restablecerVelocidad . correr tiempo . (\x -> x {velocidad = 2 * velocidad x}) $ a
+      | otherwise = a
+    restablecerVelocidad x = x {velocidad = velocidad auto}
 
+--simularCarrera :: Carrera -> [Carrera -> Carrera] -> [(Int, Color)]
 
+correnTodos :: Carrera -> Int -> Carrera
+correnTodos (Carrera autos) tiempo = Carrera (afectarALosQueCumplen (const True) (correr tiempo) autos) 
 
-
-{-
-Como se explicó inicialmente sobre las carreras que queremos simular, los autos que participan pueden gatillar poderes especiales a los que denominamos power ups.
-Estos poderes son variados y tienen como objetivo impactar al estado general de la carrera, ya sea afectando al auto que lo gatilló y/o a sus contrincantes dependiendo de qué poder se
-trate.
-
-Nota: disponemos de una función afectarALosQueCumplen :: (a -> Bool) -> (a -> a) -> [a] -> [a] que puede ser de utilidad para manipular el estado de la carrera. Ver pág. 2 para más
-detalles.
-
-Inicialmente queremos poder representar los siguientes power ups, pero debería ser fácil incorporar más power ups a futuro para enriquecer nuestro programa:
-terremoto: luego de usar este poder, los autos que están cerca del que gatilló el power up bajan su velocidad en 50.
-miguelitos: este poder debe permitir configurarse con una cantidad que indica en cuánto deberán bajar la velocidad los autos que se vean afectados por su uso. Los autos a afectar son
-aquellos a los cuales el auto que gatilló el power up les vaya ganando.
-jet pack: este poder debe afectar, dentro de la carrera, solamente al auto que gatilló el poder. El jet pack tiene un impacto que dura una cantidad limitada de tiempo, el cual se espera
-poder configurar.
-Cuando se activa el poder del jet pack, el auto afectado duplica su velocidad actual, luego corre durante el timpo indicado y feinalmente su velocidad vuelve al valor que tenía antes de
-que se active el poder.
-Por simplicidad, no se espera que los demás autos que participan de la carrera también avancen en ese tiempo.
-
-Como se mencionó anteriormente, disponemos de la siguiente función para usar dentro de la resolución:
-
-afectarALosQueCumplen :: (a -> Bool) -> (a -> a) -> [a] -> [a]
-afectarALosQueCumplen criterio efecto lista
-  = (map efecto . filter criterio) lista ++ filter (not.criterio) lista
--}
+--usaPowerUp :: PowerUp
