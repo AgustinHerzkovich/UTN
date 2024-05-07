@@ -4,7 +4,7 @@
         {
             "type": "cppbuild",
             "label": "C/C++: gcc compilar archivo activo",
-            "command": "/mingw64/bin/gcc",
+            "command": "C:\\msys64\\mingw64\\bin\\gcc.exe",
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",
@@ -25,7 +25,7 @@
                 "kind": "build",
                 "isDefault": true
             },
-            "detail": "compilador: /mingw64/bin/gcc"
+            "detail": "compilador: C:\\msys64\\mingw64\\bin\\gcc.exe"
         }
     ]
 }

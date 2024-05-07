@@ -241,3 +241,27 @@ primero (x, _) = x
 -- snd
 segundo :: (a, b) -> b
 segundo (_, y) = y
+
+--groupBy
+agruparPor :: (a -> a -> Bool) -> [a] -> [[a]]
+agruparPor comparacion [] = []
+agruparPor comparacion (x : xs) = grupo : agruparPor comparacion resto
+  where
+    (grupo, resto) = tomarGrupo comparacion [x] xs
+
+tomarGrupo :: (a -> a -> Bool) -> [a] -> [a] -> ([a], [a])
+tomarGrupo _ grupo [] = (grupo, [])
+tomarGrupo comparacion grupo (y : ys)
+  | comparacion (head grupo) y = tomarGrupo comparacion (y : grupo) ys
+  | otherwise = (grupo, y : ys)
+
+--zip
+zipar :: [a] -> [b] -> [(a,b)]
+zipar lista1 lista2 = auxZip lista1 lista2 []
+
+auxZip :: [a] -> [b] -> [(a, b)] -> [(a, b)]
+auxZip lista1 lista2 lista3
+  | null lista1 || null lista2 = reverse lista3
+  | otherwise = auxZip (tail lista1) (tail lista2) ((head lista1,head lista2) : lista3)
+
+-- Zip: Toma dos listas y las combina en una lista de pares donde cada par contiene un elemento de cada lista correspondiente.
