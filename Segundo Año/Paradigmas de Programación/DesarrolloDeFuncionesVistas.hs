@@ -74,15 +74,6 @@ signo x
   | x > 0 = 1
   | x < 0 = -1
 
--- length
-cantidadDeElementos :: [a] -> Int
-cantidadDeElementos = contadorAuxiliar 0
-
-contadorAuxiliar :: (Num t) => t -> [a] -> t
-contadorAuxiliar acumulador lista
-  | null lista = acumulador
-  | otherwise = contadorAuxiliar (acumulador + 1) (tail lista)
-
 -- head
 primerElemento :: [a] -> a
 primerElemento = (!! 0)
@@ -104,135 +95,119 @@ esVacia = (0 ==) . length
 
 -- ++
 concatenacionSimple :: [a] -> [a] -> [a]
-concatenacionSimple = agregarRecursiva
-
-agregarRecursiva :: [a] -> [a] -> [a]
-agregarRecursiva lista1 lista2
-  | null lista1 = reverse lista2
-  | otherwise = agregarRecursiva (tail lista1) (head lista1 : lista2)
+concatenacionSimple [] lista = lista
+concatenacionSimple (x : xs) lista = x : concatenacionSimple xs lista
 
 -- reverse
 invertirLista :: [a] -> [a]
-invertirLista lista = agregarRecursiva lista []
+invertirLista [] = []
+invertirLista (x : xs) = invertirLista xs ++ [x]
+
+-- foldr
+plegar :: (a -> b -> b) -> b -> [a] -> b
+plegar _ neutro [] = neutro
+plegar operacion neutro (x : xs) = x `operacion` plegar operacion neutro xs
 
 -- sum
 sumatoria :: (Num t) => [t] -> t
-sumatoria lista = operar (+) lista 0
+sumatoria = plegar (+) 0
 
 -- product
 producto :: (Num t) => [t] -> t
-producto lista = operar (*) lista 1
+producto = plegar (*) 1
 
-operar :: (Num t) => (t -> t -> t) -> [t] -> t -> t
-operar operador lista numero
-  | null lista = numero
-  | otherwise = operar operador (tail lista) (operador numero (head lista))
+-- and
+conjuncion :: [Bool] -> Bool
+conjuncion = plegar (&&) True
 
-listaNatural :: Integer -> [Integer]
-listaNatural val = [1 .. val]
+-- or
+disyuncion :: [Bool] -> Bool
+disyuncion = plegar (||) False
 
-factorial :: Integer -> Integer
-factorial = producto . listaNatural
+-- concat
+concatenacionDoble :: [[a]] -> [a]
+concatenacionDoble = plegar (++) []
+
+-- length
+longitud :: [a] -> Int
+longitud = plegar (\_ y -> 1 + y) 0
+
+-- foldl
+plegar2 :: (b -> a -> b) -> b -> [a] -> b
+plegar2 _ neutro [] = neutro
+plegar2 operacion neutro (x : xs) = plegar2 operacion (operacion neutro x) xs
 
 -- elem
-perteneceA :: (Foldable ((->) p), Eq p) => p -> (Bool -> Bool) -> Bool
-perteneceA elemento lista = lista `any` (== elemento)
+perteneceA :: (Eq a) => a -> [a] -> Bool
+perteneceA elemento = any (== elemento)
 
 -- !!
 posicionLista :: [a] -> Int -> a
-posicionLista = recorrerHasta
-
-recorrerHasta :: [a] -> Int -> a
-recorrerHasta lista indice
-  | ((+ 1) . length) lista == indice = head lista
-  | otherwise = recorrerHasta ((tail . reverse) lista) indice
+posicionLista lista indice
+  | indice == 0 = head lista
+  | otherwise = posicionLista (tail lista) (indice - 1)
 
 -- filter
 filtrar :: (a -> Bool) -> [a] -> [a]
-filtrar criterio lista = agregarConCriterio criterio lista []
-
-agregarConCriterio :: (a -> Bool) -> [a] -> [a] -> [a]
-agregarConCriterio criterio lista1 lista2
-  | null lista1 = reverse lista2
-  | (criterio . head) lista1 = agregarConCriterio criterio (tail lista1) (head lista1 : lista2)
-  | otherwise = agregarConCriterio criterio (tail lista1) lista2
+filtrar _ [] = []
+filtrar criterio (x : xs)
+  | criterio x = x : filtrar criterio xs
+  | otherwise = filtrar criterio xs
 
 -- map
-mapa :: (a -> b) -> [a] -> [b]
-mapa transformacion lista = transformacionRecursiva transformacion lista []
-
-transformacionRecursiva :: (a -> b) -> [a] -> [b] -> [b]
-transformacionRecursiva transformacion entrada salida
-  | null entrada = reverse salida
-  | otherwise = transformacionRecursiva transformacion (tail entrada) ((transformacion . head) entrada : salida)
+mapear :: (a -> b) -> [a] -> [b]
+mapear _ [] = []
+mapear funcion (x : xs) = funcion x : mapear funcion xs
 
 -- all
 todosCumplen :: (Eq a) => (a -> Bool) -> [a] -> Bool
+todosCumplen _ [] = True
 todosCumplen criterio lista = filter criterio lista == lista
 
 -- any
 algunoCumple :: (Eq a) => (a -> Bool) -> [a] -> Bool
-algunoCumple criterio = not . null . filter criterio
+algunoCumple _ [] = False
+algunoCumple criterio lista = (not . null . filter criterio) lista
 
 -- drop
-quitarPrimerosN :: Int -> [a] -> [a]
-quitarPrimerosN n [] = []
-quitarPrimerosN n lista
-  | tamaño == n + 1 = lista
-  | otherwise = quitarPrimerosN n (tail lista)
-  where
-    tamaño = length lista
+dropear :: Int -> [a] -> [a]
+dropear _ [] = []
+dropear n lista
+  | length lista == n + 1 = lista
+  | otherwise = dropear n (tail lista)
 
 -- take
 tomar :: Int -> [a] -> [a]
-tomar n lista = extraerLosNPrimeros n lista []
-
-extraerLosNPrimeros :: Int -> [a] -> [a] -> [a]
-extraerLosNPrimeros n [] [] = []
-extraerLosNPrimeros n lista1 lista2
-  | tamaño == n + 1 = reverse lista2
-  | otherwise = extraerLosNPrimeros n (tail lista1) (head lista1 : lista2)
-  where
-    tamaño = length lista1
-
--- concat
-concatenacionDoble :: [[a]] -> [a]
-concatenacionDoble listaDeListas = compresor listaDeListas []
-
-compresor :: [[a]] -> [a] -> [a]
-compresor [[]] [] = []
-compresor listaDeListas listaCompacta
-  | null listaDeListas = listaCompacta
-  | otherwise = compresor (tail listaDeListas) ((reverse . head) listaDeListas `concatenacionSimple` listaCompacta)
+tomar _ [] = []
+tomar n lista
+  | length lista == n = lista
+  | otherwise = tomar n (init lista)
 
 -- maximum
 maximo2 :: (Num a, Ord a) => [a] -> a
-maximo2 lista = piola lista (head lista) (>)
+maximo2 [] = error "Prelude.maximum: empty list"
+maximo2 [x] = x
+maximo2 (x : xs) = max x (maximo2 xs)
 
 -- minimum
 minimo2 :: (Num a, Ord a) => [a] -> a
-minimo2 lista = piola lista (head lista) (<)
-
-piola :: (Num a, Ord a) => [a] -> a -> (a -> a -> Bool) -> a
-piola lista valor operador
-  | null lista = valor
-  | head lista `operador` valor = piola (tail lista) (head lista) (operador)
-  | otherwise = piola (tail lista) valor (operador)
+minimo2 [] = error "Prelude.maximum: empty list"
+minimo2 [x] = x
+minimo2 (x : xs) = min x (minimo2 xs)
 
 -- takeWhile
 tomarMientras :: (a -> Bool) -> [a] -> [a]
-tomarMientras condicion lista = avanzar condicion lista []
+tomarMientras _ [] = []
+tomarMientras condicion (x : xs)
+  | condicion x = x : tomarMientras condicion xs
+  | otherwise = []
 
-avanzar :: (a -> Bool) -> [a] -> [a] -> [a]
-avanzar condicion lista1 lista2
-  | (condicion.head) lista1 = avanzar condicion (tail lista1) (head lista1 : lista2)
-  | otherwise = reverse lista2
-
---dropWhile
+-- dropWhile
 quitarMientras :: (a -> Bool) -> [a] -> [a]
-quitarMientras condicion lista
-  | (condicion.head) lista = quitarMientras condicion (tail lista)
-  | otherwise = lista
+quitarMientras _ [] = []
+quitarMientras condicion (x : xs)
+  | condicion x = quitarMientras condicion xs
+  | otherwise = x : xs
 
 -- fst
 primero :: (a, b) -> a
@@ -242,24 +217,15 @@ primero (x, _) = x
 segundo :: (a, b) -> b
 segundo (_, y) = y
 
---groupBy
+-- groupBy
 agruparPor :: (a -> a -> Bool) -> [a] -> [[a]]
-agruparPor comparacion [] = []
-agruparPor comparacion (x : xs) = grupo : agruparPor comparacion resto
+agruparPor _ [] = []
+agruparPor comparacion (x : xs) = (x : mismoGrupo) : agruparPor comparacion resto
   where
-    (grupo, resto) = tomarGrupo comparacion [x] xs
-
-tomarGrupo :: (a -> a -> Bool) -> [a] -> [a] -> ([a], [a])
-tomarGrupo _ grupo [] = (grupo, [])
-tomarGrupo comparacion grupo (y : ys)
-  | comparacion (head grupo) y = tomarGrupo comparacion (y : grupo) ys
-  | otherwise = (grupo, y : ys)
+    (mismoGrupo, resto) = span (comparacion x) xs
 
 --zip
-zipar :: [a] -> [b] -> [(a,b)]
-zipar lista1 lista2 = auxZip lista1 lista2 []
-
-auxZip :: [a] -> [b] -> [(a, b)] -> [(a, b)]
-auxZip lista1 lista2 lista3
-  | null lista1 || null lista2 = reverse lista3
-  | otherwise = auxZip (tail lista1) (tail lista2) ((head lista1,head lista2) : lista3)
+zipar :: [a] -> [b] -> [(a, b)]
+zipar [] _ = []
+zipar _ [] = []
+zipar (x : xs) (y : ys) = (x, y) : zipar xs ys

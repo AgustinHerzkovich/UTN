@@ -1,11 +1,11 @@
 {-# LANGUAGE OverloadedStrings #-}
 
-
 -- fibonacci
-fibonacci :: (Eq a, Num a) => a -> a
-fibonacci 0 = 0
-fibonacci 1 = 1
-fibonacci n = (n - 1) + (n - 2)
+fibonacci :: Integer -> Integer
+fibonacci n
+  | n == 0 = 0
+  | n == 1 = 1
+  | n > 1 = fibonacci (n - 1) + fibonacci (n - 2)
 
 {-
 -- tipos algebraicos
@@ -37,17 +37,18 @@ datosPrincipales personita = (nombre personita, edad personita)
 
 -}
 
-factorial :: (Integral a) => a -> a
-factorial 0 = 1
-factorial n = n * factorial (n - 1)
+factorial :: Integer -> Integer
+factorial n
+  | n == 0 = 1
+  | n > 0 = n * factorial (n - 1)
 
-combinatorio :: (Integral a) => a -> a -> a
+combinatorio :: Integer -> Integer -> Integer
 combinatorio n m = factorial n `div` (factorial m * factorial (n - m))
 
-variacion :: Int -> Int -> Int
+variacion :: Integer -> Integer -> Integer
 variacion n m = factorial n `div` factorial (n - m)
 
-probabilidadBinomial :: (Integral a, Fractional b) => a -> b -> a -> b
+probabilidadBinomial :: Integer -> Double -> Integer -> Double
 probabilidadBinomial n p k = fromIntegral (combinatorio n k) * (p ^ k) * (1 - p) ^ (n - k)
 
 {-
@@ -67,7 +68,7 @@ data Producto = Producto
     precio :: Double,
     categoria :: String
   }
-  deriving (Show,Eq)
+  deriving (Show, Eq)
 
 crearProducto :: String -> Double -> String -> Producto
 crearProducto nuevonombre nuevoprecio nuevacategoria = Producto {nombre = nuevonombre, precio = nuevoprecio, categoria = nuevacategoria}

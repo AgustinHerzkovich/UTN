@@ -82,10 +82,10 @@ data Obstaculo = Tunel | Laguna Int | Hoyo deriving (Show)
 -- c. Un hoyo se supera si la velocidad del tiro está entre 5 y 20 m/s yendo al ras del suelo con una precisión mayor a 95.
 -- Al superar el hoyo, el tiro se detiene, quedando con todos sus componentes en 0.
 
-puedeSuperarlo :: Obstaculo -> Tiro -> Bool
-puedeSuperarlo Tunel (UnTiro _ precision altura) = precision > 90 && altura == 0
-puedeSuperarlo (Laguna _) (UnTiro velocidad _ altura) = velocidad > 80 && (altura >= 1 && altura <= 5)
-puedeSuperarlo Hoyo (UnTiro velocidad precision altura) = (velocidad >= 5 && velocidad <= 20) && altura == 0 && precision > 95
+puedeSuperarlo :: Tiro -> Obstaculo -> Bool
+puedeSuperarlo (UnTiro _ precision altura) Tunel = precision > 90 && altura == 0
+puedeSuperarlo (UnTiro velocidad _ altura) (Laguna _) = velocidad > 80 && (altura >= 1 && altura <= 5)
+puedeSuperarlo (UnTiro velocidad precision altura) Hoyo = (velocidad >= 5 && velocidad <= 20) && altura == 0 && precision > 95
 
 modificar :: Tiro -> Obstaculo -> Tiro
 modificar (UnTiro velocidad _ _) Tunel = UnTiro ((* 2) velocidad) 100 0
@@ -96,14 +96,14 @@ modificar (UnTiro {}) Hoyo = UnTiro 0 0 0
 
 comoQueda :: Tiro -> Obstaculo -> Tiro
 comoQueda tiro obstaculo
-  | puedeSuperarlo obstaculo tiro = modificar tiro obstaculo
+  | puedeSuperarlo tiro obstaculo  = modificar tiro obstaculo
   | otherwise = modificar tiro Hoyo
 
 -- 4.
 -- a. Definir palosUtiles que dada una persona y un obstáculo, permita determinar qué palos le sirven para superarlo.
 
 palosUtiles :: Jugador -> Obstaculo -> [Palo]
-palosUtiles jugador obstaculo = filter (puedeSuperarlo obstaculo . golpe jugador) palos
+palosUtiles jugador obstaculo = filter (\palo -> puedeSuperarlo (golpe jugador palo) obstaculo) palos
 
 -- b. Saber, a partir de un conjunto de obstáculos y un tiro, cuántos obstáculos consecutivos se pueden superar.
 -- Por ejemplo, para un tiro de velocidad = 10, precisión = 95 y altura = 0, y una lista con dos túneles con rampita seguidos de un hoyo,
@@ -114,3 +114,9 @@ palosUtiles jugador obstaculo = filter (puedeSuperarlo obstaculo . golpe jugador
 
 -- 5. Dada una lista de tipo [(Jugador, Puntos)] que tiene la información de cuántos puntos ganó cada niño al finalizar el torneo, se pide retornar la lista de padres que pierden
 -- la apuesta por ser el “padre del niño que no ganó”. Se dice que un niño ganó el torneo si tiene más puntos que los otros niños.
+
+padresPerdedores :: [(Jugador,Puntos)] -> [String]
+padresPerdedores lista = map padre (map fst (filter (\(jugador,puntos) -> puntos /= maximum (map snd lista)) lista))
+
+listado :: [(Jugador, Puntos)]
+listado = [(bart,20),(todd,50),(rafa,10)]
