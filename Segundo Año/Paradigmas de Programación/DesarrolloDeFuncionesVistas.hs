@@ -173,6 +173,7 @@ algunoCumple criterio lista = (not . null . filter criterio) lista
 dropear :: Int -> [a] -> [a]
 dropear _ [] = []
 dropear n lista
+  | n <= 0 = [] 
   | length lista == n + 1 = lista
   | otherwise = dropear n (tail lista)
 
@@ -180,6 +181,7 @@ dropear n lista
 tomar :: Int -> [a] -> [a]
 tomar _ [] = []
 tomar n lista
+  | n <= 0 = []
   | length lista == n = lista
   | otherwise = tomar n (init lista)
 
@@ -224,7 +226,7 @@ agruparPor comparacion (x : xs) = (x : mismoGrupo) : agruparPor comparacion rest
   where
     (mismoGrupo, resto) = span (comparacion x) xs
 
---zip
+-- zip
 zipar :: [a] -> [b] -> [(a, b)]
 zipar [] _ = []
 zipar _ [] = []

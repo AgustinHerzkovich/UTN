@@ -9,7 +9,7 @@
                 "-fdiagnostics-color=always",
                 "-g",
                 "-Wall",
-                "-std=c2x",
+                "-std=c23",
                 "-pedantic-errors",
                 "${file}",
                 "-o",
