@@ -231,3 +231,20 @@ zipar :: [a] -> [b] -> [(a, b)]
 zipar [] _ = []
 zipar _ [] = []
 zipar (x : xs) (y : ys) = (x, y) : zipar xs ys
+
+-- repeat
+repetir :: a -> [a]
+repetir x = x : repetir x
+
+-- cycle
+ciclar :: [a] -> [a]
+ciclar x = x ++ ciclar x
+
+-- iterate
+iterar :: (a-> a) -> a -> [a]
+iterar f x = x : iterar f (f x)
+
+-- replicate
+replicar :: Int -> a -> [a]
+replicar 0 _ = []
+replicar n x = x : replicar (n-1) x
