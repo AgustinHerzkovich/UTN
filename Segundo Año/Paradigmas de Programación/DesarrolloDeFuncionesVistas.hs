@@ -173,7 +173,7 @@ algunoCumple criterio lista = (not . null . filter criterio) lista
 dropear :: Int -> [a] -> [a]
 dropear _ [] = []
 dropear n lista
-  | n <= 0 = [] 
+  | n <= 0 = []
   | length lista == n + 1 = lista
   | otherwise = dropear n (tail lista)
 
@@ -241,10 +241,14 @@ ciclar :: [a] -> [a]
 ciclar x = x ++ ciclar x
 
 -- iterate
-iterar :: (a-> a) -> a -> [a]
+iterar :: (a -> a) -> a -> [a]
 iterar f x = x : iterar f (f x)
 
 -- replicate
 replicar :: Int -> a -> [a]
 replicar 0 _ = []
-replicar n x = x : replicar (n-1) x
+replicar n x = x : replicar (n - 1) x
+
+-- span
+abarcar :: (a -> Bool) -> [a] -> ([a], [a])
+abarcar condicion lista = (filter condicion lista,filter (not.condicion) lista)
