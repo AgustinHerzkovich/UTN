@@ -252,3 +252,13 @@ replicar n x = x : replicar (n - 1) x
 -- span
 abarcar :: (a -> Bool) -> [a] -> ([a], [a])
 abarcar condicion lista = (filter condicion lista,filter (not.condicion) lista)
+
+-- sort
+sortear :: (Ord a) => [a] -> [a]
+sortear = foldr insertarOrdenado []
+
+insertarOrdenado :: (Ord a) => a -> [a] -> [a]
+insertarOrdenado x [] = [x]
+insertarOrdenado x (y : ys)
+  | x <= y = x : y : ys
+  | otherwise = y : insertarOrdenado x ys
