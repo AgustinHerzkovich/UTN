@@ -53,10 +53,10 @@ data Palo = Putter | Madera | Hierro Int deriving (Show)
 -- iii. Los hierros, que varían del 1 al 10 (número al que denominaremos n), generan un tiro de velocidad igual a la fuerza multiplicada por n, la precisión dividida por n y una altura
 -- de n-3 (con mínimo 0). Modelarlos de la forma más genérica posible
 
-generarTiro :: Palo -> Habilidad -> Tiro
-generarTiro Putter habilidad = UnTiro 10 (((* 2) . precisionJugador) habilidad) 0
-generarTiro Madera habilidad = UnTiro 100 (((`div` 2) . precisionJugador) habilidad) 5
-generarTiro (Hierro n) habilidad = UnTiro (((* n) . fuerzaJugador) habilidad) (((`div` n) . precisionJugador) habilidad) (max 0 n - 3)
+generarTiro :: Habilidad -> Palo  -> Tiro
+generarTiro habilidad Putter  = UnTiro 10 (((* 2) . precisionJugador) habilidad) 0
+generarTiro habilidad Madera  = UnTiro 100 (((`div` 2) . precisionJugador) habilidad) 5
+generarTiro habilidad (Hierro n)  = UnTiro (((* n) . fuerzaJugador) habilidad) (((`div` n) . precisionJugador) habilidad) (max 0 n - 3)
 
 -- b. Definir una constante palos que sea una lista con todos los palos que se pueden usar en el juego.
 
@@ -67,7 +67,7 @@ palos = [Putter, Madera] ++ [Hierro n | n <- [1 .. 10]]
 -- Por ejemplo si Bart usa un putter, se genera un tiro de velocidad = 10, precisión = 120 y altura = 0.
 
 golpe :: Jugador -> Palo -> Tiro
-golpe jugador palo = generarTiro palo (habilidad jugador)
+golpe jugador = generarTiro (habilidad jugador) 
 
 -- 3. Lo que nos interesa de los distintos obstáculos es si un tiro puede superarlo, y en el caso de poder superarlo, cómo se ve afectado dicho tiro por el obstáculo.
 -- En principio necesitamos representar los siguientes obstáculos:
@@ -110,7 +110,13 @@ palosUtiles jugador obstaculo = filter (\palo -> puedeSuperarlo (golpe jugador p
 -- el resultado sería 2 ya que la velocidad al salir del segundo túnel es de 40, por ende no supera el hoyo.
 -- BONUS: resolver este problema sin recursividad, teniendo en cuenta que existe una función takeWhile :: (a -> Bool) -> [a] -> [a] que podría ser de utilidad.
 
+cuantosObstaculosPuedeSuperar :: Tiro -> [Obstaculo] -> Int
+cuantosObstaculosPuedeSuperar tiro  = length . takeWhile (puedeSuperarlo tiro)
+
 -- c. Definir paloMasUtil que recibe una persona y una lista de obstáculos y determina cuál es el palo que le permite superar más obstáculos con un solo tiro
+
+--paloMasUtil :: Jugador -> [Obstaculo] -> Palo
+--paloMasUtil jugador obstaculos = (!!) .  max . map (cuantosObstaculosPuedeSuperar (map (generarTiro habilidad jugador) (palos))) obstaculos
 
 -- 5. Dada una lista de tipo [(Jugador, Puntos)] que tiene la información de cuántos puntos ganó cada niño al finalizar el torneo, se pide retornar la lista de padres que pierden
 -- la apuesta por ser el “padre del niño que no ganó”. Se dice que un niño ganó el torneo si tiene más puntos que los otros niños.
