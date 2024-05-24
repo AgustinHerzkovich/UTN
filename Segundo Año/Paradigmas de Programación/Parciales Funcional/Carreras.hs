@@ -1,11 +1,14 @@
 import Data.List
 
--- 1.
-data Auto = UnAuto{
-  color :: Color,
-  velocidad :: Int,
-  distanciaRecorrida :: Int
-} deriving (Show, Eq)
+---------------
+--- Punto 1 ---
+---------------
+data Auto = UnAuto
+  { color :: Color,
+    velocidad :: Int,
+    distanciaRecorrida :: Int
+  }
+  deriving (Show, Eq)
 
 type Color = String
 
@@ -38,17 +41,20 @@ puestos :: Carrera -> Carrera
 puestos = sortBy (flip (\x y -> compare (distanciaRecorrida x) (distanciaRecorrida y)))
 
 puestoAuto :: Auto -> Carrera -> Int
-puestoAuto auto = (+ 1) . length . takeWhile (/= auto).puestos
+puestoAuto auto = (+ 1) . length . takeWhile (/= auto) . puestos
 
 vaAtrasDe :: Auto -> Auto -> Bool
-vaAtrasDe auto = (< distanciaRecorrida auto).distanciaRecorrida
+vaAtrasDe auto = (< distanciaRecorrida auto) . distanciaRecorrida
 
--- 2.
+---------------
+--- Punto 2 ---
+---------------
 type Modificador = Auto -> Auto
 
 -- a.
 correr :: Int -> Modificador
 correr tiempo auto = auto {distanciaRecorrida = distanciaRecorrida auto + tiempo * velocidad auto}
+
 -- b.
 piso :: Int -> Int
 piso = max 0
@@ -59,15 +65,17 @@ alterarVelocidad modificador auto = auto {velocidad = (piso . modificador . velo
 
 -- ii.
 bajarVelocidad :: Int -> Modificador
-bajarVelocidad cant auto = alterarVelocidad (\x -> x - cant)  auto
+bajarVelocidad cant auto = alterarVelocidad (\x -> x - cant) auto
 
--- 3.
+---------------
+--- Punto 3 ---
+---------------
 type Powerup = Auto -> Carrera -> Carrera
 
 afectarALosQueCumplen :: (Auto -> Bool) -> Modificador -> Carrera -> Carrera
 afectarALosQueCumplen criterio efecto carrera = (map efecto . filter criterio) carrera ++ filter (not . criterio) carrera
 
--- a. 
+-- a.
 terremoto :: Powerup
 terremoto auto = afectarALosQueCumplen (estanCerca auto) (bajarVelocidad 50)
 
@@ -77,9 +85,11 @@ miguelitos cant auto = afectarALosQueCumplen (vaAtrasDe auto) (bajarVelocidad ca
 
 -- c.
 jetpack :: Int -> Powerup
-jetpack tiempo auto = afectarALosQueCumplen (== auto) (alterarVelocidad (`div` 2) . correr tiempo . alterarVelocidad (2*))
+jetpack tiempo auto = afectarALosQueCumplen (== auto) (alterarVelocidad (`div` 2) . correr tiempo . alterarVelocidad (2 *))
 
--- 4.
+---------------
+--- Punto 4 ---
+---------------
 type Evento = Carrera -> Carrera
 
 aplicarEventos :: [Evento] -> Evento
@@ -87,6 +97,7 @@ aplicarEventos eventos carrera = foldr id carrera eventos
 
 conseguirResultado :: Carrera -> Resultado
 conseguirResultado carrera = map (\x -> (puestoAuto x carrera, color x)) carrera
+
 -- a.
 type Resultado = [(Int, Color)]
 
@@ -99,7 +110,7 @@ correnTodos :: Int -> Evento
 correnTodos tiempo carrera = map (correr tiempo) carrera
 
 hallarAutoColor :: Color -> Carrera -> Auto
-hallarAutoColor colorBuscado = head.dropWhile ((/= colorBuscado).color)
+hallarAutoColor colorBuscado = head . dropWhile ((/= colorBuscado) . color)
 
 -- ii.
 usaPowerUp :: Powerup -> Color -> Evento
@@ -145,7 +156,9 @@ evento7 = correnTodos 10
 tablaPuestos :: Resultado
 tablaPuestos = simularCarrera [evento1, evento2, evento3, evento4, evento5, evento6, evento7] carrera1
 
---5.
+---------------
+--- Punto 5 ---
+---------------
 -- a. Se puede realiza de la siguiente manera (efecto a definir)
 -- misilTeledirigido :: Color -> Powerup
 -- misilTeledirigido color auto carrera = afectarALosQueCumplen (== hallarAutoColor color carrera) efecto carrera
