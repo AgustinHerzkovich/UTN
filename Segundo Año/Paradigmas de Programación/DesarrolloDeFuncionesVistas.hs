@@ -251,14 +251,31 @@ replicar n x = x : replicar (n - 1) x
 
 -- span
 abarcar :: (a -> Bool) -> [a] -> ([a], [a])
-abarcar condicion lista = (filter condicion lista,filter (not.condicion) lista)
+abarcar condicion lista = (filter condicion lista, filter (not . condicion) lista)
 
 -- sort
-sortear :: (Ord a) => [a] -> [a]
-sortear = foldr insertarOrdenado []
+ordenar :: (Ord a) => [a] -> [a]
+ordenar = foldr insertarOrdenado []
 
 insertarOrdenado :: (Ord a) => a -> [a] -> [a]
 insertarOrdenado x [] = [x]
 insertarOrdenado x (y : ys)
   | x <= y = x : y : ys
   | otherwise = y : insertarOrdenado x ys
+
+-- sortBy
+ordenarPor :: (a -> a -> Ordering) -> [a] -> [a]
+ordenarPor condicion = foldr (insertarOrdenadoPor condicion) []
+
+insertarOrdenadoPor :: (a -> a -> Ordering) -> a -> [a] -> [a]
+insertarOrdenadoPor _ x [] = [x]
+insertarOrdenadoPor condicion x (y : ys)
+  | condicion x y == LT = x : y : ys
+  | otherwise = y : insertarOrdenadoPor condicion x ys
+
+-- foldl1
+--plegarAIzquierda1 :: (a -> a -> a) -> [a] -> a
+
+
+-- foldr1
+--plegarADerecha1 :: (a -> a -> a) -> [a] -> a
