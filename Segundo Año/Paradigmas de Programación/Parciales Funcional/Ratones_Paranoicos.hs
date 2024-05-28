@@ -1,7 +1,8 @@
 {-# OPTIONS_GHC -Wno-empty-enumerations #-}
-import Text.Show.Functions
+
 import Control.Monad.Signatures (Pass)
 import Data.List
+import Text.Show.Functions
 
 isAlfa x = elem x ['a' .. 'Z']
 
@@ -87,17 +88,17 @@ textoHash = show . sum . map fromEnum
 -- 3.
 registrarse :: Nombre -> Password -> Aplicacion -> Aplicacion
 registrarse unNombre unaPassword (usuarios, requisitos, metodo)
-    | puedoUsar unaPassword (usuarios, requisitos, metodo) = (crearUsuario unNombre (metodo unaPassword) : usuarios, requisitos, metodo)
-    | otherwise = (usuarios, requisitos, metodo)
+  | puedoUsar unaPassword (usuarios, requisitos, metodo) = (crearUsuario unNombre (metodo unaPassword) : usuarios, requisitos, metodo)
+  | otherwise = (usuarios, requisitos, metodo)
 
 -- 4.
 -- a.
 paradigma :: Aplicacion
-paradigma = ([], [(> 6) . length,not . empiezaConLetra 't'], cesar 4)
+paradigma = ([], [(> 6) . length, not . empiezaConLetra 't'], cesar 4)
 
 -- b.
 facebutt :: Aplicacion
-facebutt = ([("usuario " ++ show n,textoHash $ "laPasswordDificil" ++ show n) | n <- [1..]],[], id)
+facebutt = ([("usuario " ++ show n, textoHash $ "laPasswordDificil" ++ show n) | n <- [1 ..]], [], id)
 
 {-
 la función puedoUsar puede utilizarse en facebutt, de hecho, siempre retornará True independientemente
