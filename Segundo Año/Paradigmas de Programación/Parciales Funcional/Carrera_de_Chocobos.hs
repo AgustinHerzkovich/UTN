@@ -128,13 +128,19 @@ elMejorDelTramo :: Tramo -> [Jinete] -> Nombre
 elMejorDelTramo unTramo = nombreJinete . mejorTiempo unTramo
 
 -- b.
+jinetesConTiempoMinimo :: Tramo -> [Jinete] -> [Jinete]
+jinetesConTiempoMinimo unTramo jinetes = filter (\jinete -> tiempoTramo unTramo jinete == minimoTiempo) jinetes
+  where
+    minimoTiempo = (minimum . map (tiempoTramo unTramo)) jinetes
+
+mayorPeso :: [Jinete] -> Jinete
+mayorPeso = head . quickSort (mayorSegun (peso . chocoboJinete))
+
 ganoTramo :: Tramo -> Jinete -> [Jinete] -> Bool
-ganoTramo unTramo unJinete jinetes = tiempoTramo unTramo unJinete == minimoTiempo && correccionDeVelocidad unTramo (chocoboJinete unJinete) == maximaVelocidad
-    where
-        tiempos = map (tiempoTramo unTramo) jinetes
-        minimoTiempo = minimum tiempos
-        velocidades = map (correccionDeVelocidad unTramo . chocoboJinete) jinetes
-        maximaVelocidad = maximum velocidades
+ganoTramo unTramo unJinete jinetes = unJinete == jineteConMejorVelocidad
+  where
+    jinetesMinimos = jinetesConTiempoMinimo unTramo jinetes
+    jineteConMejorVelocidad = mayorPeso jinetesMinimos
 
 cantidadTramosGanados :: Pista -> [Jinete] -> Jinete -> Int
 cantidadTramosGanados [] _ _ = 0

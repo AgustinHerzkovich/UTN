@@ -104,38 +104,38 @@ invertirLista [] = []
 invertirLista (x : xs) = invertirLista xs ++ [x]
 
 -- foldr
-plegar :: (a -> b -> b) -> b -> [a] -> b
-plegar _ neutro [] = neutro
-plegar operacion neutro (x : xs) = x `operacion` plegar operacion neutro xs
+plegarADerecha :: (a -> b -> b) -> b -> [a] -> b
+plegarADerecha _ neutro [] = neutro
+plegarADerecha operacion neutro (x : xs) = x `operacion` plegarADerecha operacion neutro xs
 
 -- sum
 sumatoria :: (Num t) => [t] -> t
-sumatoria = plegar (+) 0
+sumatoria = plegarADerecha (+) 0
 
 -- product
 producto :: (Num t) => [t] -> t
-producto = plegar (*) 1
+producto = plegarADerecha (*) 1
 
 -- and
 conjuncion :: [Bool] -> Bool
-conjuncion = plegar (&&) True
+conjuncion = plegarADerecha (&&) True
 
 -- or
 disyuncion :: [Bool] -> Bool
-disyuncion = plegar (||) False
+disyuncion = plegarADerecha (||) False
 
 -- concat
 concatenacionDoble :: [[a]] -> [a]
-concatenacionDoble = plegar (++) []
+concatenacionDoble = plegarADerecha (++) []
 
 -- length
 longitud :: [a] -> Int
-longitud = plegar (\_ y -> 1 + y) 0
+longitud = plegarADerecha (\_ y -> 1 + y) 0
 
 -- foldl
-plegar2 :: (b -> a -> b) -> b -> [a] -> b
-plegar2 _ neutro [] = neutro
-plegar2 operacion neutro (x : xs) = plegar2 operacion (operacion neutro x) xs
+plegarAIzquierda :: (b -> a -> b) -> b -> [a] -> b
+plegarAIzquierda _ neutro [] = neutro
+plegarAIzquierda operacion neutro (x : xs) = plegarAIzquierda operacion (operacion neutro x) xs
 
 -- elem
 perteneceA :: (Eq a) => a -> [a] -> Bool
@@ -273,9 +273,20 @@ insertarOrdenadoPor condicion x (y : ys)
   | condicion x y == LT = x : y : ys
   | otherwise = y : insertarOrdenadoPor condicion x ys
 
--- foldl1
---plegarAIzquierda1 :: (a -> a -> a) -> [a] -> a
+-- compare
+comparar :: (Ord a) => a -> a -> Ordering
+comparar x y
+  | x < y = LT
+  | x > y = GT
+  | otherwise = EQ
 
+-- foldl1
+plegarAIzquierda1 :: (a -> a -> a) -> [a] -> a
+plegarAIzquierda1 _ [] = error "empty list"
+plegarAIzquierda1 operacion (x:xs) = foldl operacion x xs
 
 -- foldr1
---plegarADerecha1 :: (a -> a -> a) -> [a] -> a
+plegarADerecha1 :: (a -> a -> a) -> [a] -> a
+plegarADerecha1 _ [] = error "empty list"
+plegarADerecha1 _ [x] = x
+plegarADerecha1 operacion (x:xs) = x `operacion` foldr1 operacion xs

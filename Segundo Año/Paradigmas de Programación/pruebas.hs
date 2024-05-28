@@ -1,4 +1,6 @@
 {-# LANGUAGE OverloadedStrings #-}
+import Text.Show.Functions
+import Data.List
 
 -- fibonacci
 fibonacci :: Integer -> Integer
@@ -99,3 +101,41 @@ producto5 = crearProducto "Silla" 50.0 "Muebles"
 
 productosAleatorios :: [Producto]
 productosAleatorios = [producto1, producto2, producto3, producto4, producto5]
+
+{-
+1. Elevar al cuadrado una lista de números: Define una función que tome una lista de números y devuelva una lista con cada número elevado al cuadrado utilizando una función lambda.
+-}
+
+cuadrados :: Num a => [a] -> [a]
+cuadrados = map (\numero -> numero^2) 
+
+{-
+2. Filtrar números pares: Define una función que tome una lista de números y devuelva una lista con solo los números pares utilizando una función lambda.
+-}
+
+filtrarPares :: [Int] -> [Int]
+filtrarPares  = filter (\numero -> mod numero 2 == 0) 
+
+{-
+3. Convertir lista de strings a lista de sus longitudes: Define una función que tome una lista de strings y devuelva una lista con las longitudes de cada string utilizando una función 
+lambda.
+-}
+
+longitudes :: [String] -> [Int]
+longitudes  = map (\cadena -> length cadena) 
+
+{-
+4. Aplicar una operación a cada elemento de una lista: Define una función genérica que tome una lista y una función como argumentos y devuelva una lista donde cada elemento haya sido 
+transformado por la función dada. Utiliza una función lambda para la transformación.
+-}
+
+aplicarOperacion :: (a->b) ->[a]  -> [b]
+aplicarOperacion operacion = map (\x -> operacion x)
+
+{-
+5. Ordenar una lista de strings por longitud: Define una función que tome una lista de strings y devuelva la lista ordenada por longitud de strings, de menor a mayor, utilizando una 
+función lambda y la función sort de Haskell.
+-}
+
+ordenarPorLongitud :: [String] -> [String]
+ordenarPorLongitud = sortBy (\x y -> length x `compare` length y)
