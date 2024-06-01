@@ -1,11 +1,12 @@
-import Text.Show.Functions
+import Text.Show.Functions ()
 
 data Chico = Chico
   { nombreChico :: Nombre,
     edad :: Int,
     habilidadesChico :: [Habilidad],
     deseos :: [Deseo]
-  } deriving(Show)
+  }
+  deriving (Show)
 
 type Habilidad = String
 
@@ -35,10 +36,10 @@ serMayor = modificarEdad 18
 -- 2.
 -- a.
 quitarPrimerDeseo :: Chico -> Chico
-quitarPrimerDeseo unChico = unChico{deseos= drop 1 $ deseos unChico}
+quitarPrimerDeseo unChico = unChico {deseos = drop 1 $ deseos unChico}
 
 quitarTodosLosDeseos :: Chico -> Chico
-quitarTodosLosDeseos unChico = unChico{deseos = []}
+quitarTodosLosDeseos unChico = unChico {deseos = []}
 
 aumentarEdad :: Int -> Chico -> Chico
 aumentarEdad aumento unChico = unChico {edad = edad unChico + aumento}
@@ -47,7 +48,7 @@ madurar :: Deseo
 madurar = aumentarEdad 1
 
 wanda :: Chico -> Chico
-wanda unChico = (madurar . quitarPrimerDeseo .  (head . deseos $ unChico)) unChico
+wanda unChico = (madurar . quitarPrimerDeseo . (head . deseos $ unChico)) unChico
 
 -- b .
 cosmo :: Chico -> Chico
@@ -116,7 +117,7 @@ aj = Chico "A.J." 18 ["jugar videojuegos", "programar en Haskell"] [serGrosoEnNe
 
 -- consulta
 chicoConquistador :: Chico
-chicoConquistador = quienConquistaA tootie [timmy,chip,aj]
+chicoConquistador = quienConquistaA tootie [timmy, chip, aj]
 
 -- chicoConquistador = timmy
 
@@ -124,7 +125,7 @@ chicoConquistador = quienConquistaA tootie [timmy,chip,aj]
 --- Punto C ---
 ---------------
 habilidadesProhibidas :: [Habilidad]
-habilidadesProhibidas = ["enamorar","matar","dominarElMundo"]
+habilidadesProhibidas = ["enamorar", "matar", "dominarElMundo"]
 
 -- 1.
 esHabilidadProhibida :: Habilidad -> Bool

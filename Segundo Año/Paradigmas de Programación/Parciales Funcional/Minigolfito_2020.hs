@@ -1,6 +1,3 @@
-import Data.Time (TimeZone (timeZoneSummerOnly))
-import Distribution.Make (unAbiHash)
-
 -- Modelo inicial
 data Jugador = UnJugador
   { nombre :: String,

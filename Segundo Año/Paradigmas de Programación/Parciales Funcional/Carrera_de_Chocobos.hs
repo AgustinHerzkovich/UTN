@@ -145,14 +145,15 @@ ganoTramo unTramo unJinete jinetes = unJinete == jineteConMejorVelocidad
 cantidadTramosGanados :: Pista -> [Jinete] -> Jinete -> Int
 cantidadTramosGanados [] _ _ = 0
 cantidadTramosGanados (tramo : tramos) jinetes unJinete
-    | ganoTramo tramo unJinete jinetes   = 1 + cantidadTramosGanados tramos jinetes unJinete
-    | otherwise = cantidadTramosGanados tramos jinetes unJinete
+  | ganoTramo tramo unJinete jinetes = 1 + cantidadTramosGanados tramos jinetes unJinete
+  | otherwise = cantidadTramosGanados tramos jinetes unJinete
 
 masTramosGanados :: Pista -> [Jinete] -> Jinete
 masTramosGanados unaPista jinetes = head $ quickSort (mayorSegun (cantidadTramosGanados unaPista jinetes)) jinetes
 
 elMasWinner :: Pista -> [Jinete] -> Nombre
-elMasWinner unaPista  = nombreJinete . masTramosGanados unaPista
+elMasWinner unaPista = nombreJinete . masTramosGanados unaPista
+
 ---------------
 --- Punto 5 ---
 ---------------
@@ -161,14 +162,16 @@ puedeHacerlo tiempoMax unTramo unJinete = tiempoTramo unTramo unJinete <= tiempo
 
 quienesPueden :: Tramo -> Int -> [Jinete] -> [Nombre]
 quienesPueden unTramo tiempoMax = map nombreJinete . filter (puedeHacerlo tiempoMax unTramo)
+
 ---------------
 --- Punto 6 ---
 ---------------
 transformacion :: Pista -> [Jinete] -> Jinete -> (Nombre, Int, Int)
 transformacion unaPista jinetes unJinete = (nombreJinete unJinete, cantidadTramosGanados unaPista jinetes unJinete, tiempoTotalJinete unaPista unJinete)
 
-estadisticas :: Pista -> [Jinete] -> [(Nombre,Int,Int)]
+estadisticas :: Pista -> [Jinete] -> [(Nombre, Int, Int)]
 estadisticas unaPista jinetes = map (transformacion unaPista jinetes) (resultados unaPista jinetes)
+
 ---------------
 --- Punto 7 ---
 ---------------
@@ -178,22 +181,24 @@ fuePareja unaPista jinetes = all (\(tiempo1, tiempo2) -> tiempo1 <= tiempo2 * 9 
     resultadosOrdenados = resultados unaPista jinetes
     tiemposTotales = map (tiempoTotalJinete unaPista) resultadosOrdenados
     tiemposConsecutivos = zip tiemposTotales (drop 1 tiemposTotales)
+
 ---------------
 --- Punto 8 ---
 ---------------
 listaDeChocobos :: [Chocobo]
-listaDeChocobos = [amarillo,negro,blanco,rojo]
+listaDeChocobos = [amarillo, negro, blanco, rojo]
 
 plateado :: Chocobo
 plateado = (fuerzaMaxima, pesoMinimo, velocidadMaxima)
-    where
-        fuerzaMaxima = (maximum . map fuerza) listaDeChocobos
-        pesoMinimo = (minimum . map peso ) listaDeChocobos
-        velocidadMaxima = (maximum .map velocidad) listaDeChocobos
+  where
+    fuerzaMaxima = (maximum . map fuerza) listaDeChocobos
+    pesoMinimo = (minimum . map peso) listaDeChocobos
+    velocidadMaxima = (maximum . map velocidad) listaDeChocobos
+
 ---------------
 --- Punto 9 ---
 ---------------
-funcionHeavy :: (Ord a,Eq c) => [(a,b)] -> (c,a) -> ((a,b) -> c) -> [c]
+funcionHeavy :: (Ord a, Eq c) => [(a, b)] -> (c, a) -> ((a, b) -> c) -> [c]
 funcionHeavy x y z
-    | (fst . head) x < snd y = map z x
-    | otherwise = filter (fst y ==) (map z x)
+  | (fst . head) x < snd y = map z x
+  | otherwise = filter (fst y ==) (map z x)

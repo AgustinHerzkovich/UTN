@@ -2,7 +2,7 @@
 
 import Control.Monad.Signatures (Pass)
 import Data.List
-import Text.Show.Functions
+import Text.Show.Functions ()
 
 isAlfa x = elem x ['a' .. 'Z']
 

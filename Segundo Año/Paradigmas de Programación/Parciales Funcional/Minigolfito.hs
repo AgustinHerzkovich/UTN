@@ -1,4 +1,5 @@
-import Text.Show.Functions()
+import Text.Show.Functions ()
+
 ---------------
 --- Dominio ---
 ---------------
@@ -127,10 +128,10 @@ puedeSuperarlosTodos obstaculos unParticipante = (not . any (null . palosUtiles 
 ---------------
 -- a.
 cuantosObstaculosSupera :: [Obstaculo] -> Tiro -> Int
-cuantosObstaculosSupera []  _ = 0
+cuantosObstaculosSupera [] _ = 0
 cuantosObstaculosSupera (obstaculo : obstaculos) unTiro
-    | puedeSuperar obstaculo unTiro = 1 + cuantosObstaculosSupera obstaculos (efecto obstaculo unTiro) 
-    | otherwise = cuantosObstaculosSupera obstaculos (efecto obstaculo unTiro) 
+  | puedeSuperar obstaculo unTiro = 1 + cuantosObstaculosSupera obstaculos (efecto obstaculo unTiro)
+  | otherwise = cuantosObstaculosSupera obstaculos (efecto obstaculo unTiro)
 
 -- b.
 paloMasUtil :: Participante -> [Obstaculo] -> Palo
@@ -143,7 +144,7 @@ puntosGanados :: [Obstaculo] -> Participante -> Int
 puntosGanados obstaculos unParticipante = cuantosObstaculosSupera obstaculos (golpe (paloMasUtil unParticipante obstaculos) unParticipante)
 
 pierdenLaApuesta :: [Participante] -> [Obstaculo] -> [Nombre]
-pierdenLaApuesta participantes obstaculos = map padre . filter (not. esGanador obstaculos participantes) $ participantes
+pierdenLaApuesta participantes obstaculos = map padre . filter (not . esGanador obstaculos participantes) $ participantes
 
 esGanador :: [Obstaculo] -> [Participante] -> Participante -> Bool
 esGanador obstaculos participantes unParticipante = puedeSuperarlosTodos obstaculos unParticipante && tieneMasPuntos unParticipante participantes obstaculos

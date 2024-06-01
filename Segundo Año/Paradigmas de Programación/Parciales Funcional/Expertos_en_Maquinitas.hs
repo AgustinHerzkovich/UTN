@@ -1,15 +1,17 @@
-import Text.Show.Functions()
+import Text.Show.Functions ()
+
 ---------------
 --- Dominio ---
 ---------------
-data Persona = UnaPersona{
-    nombre :: String,
+data Persona = UnaPersona
+  { nombre :: String,
     dinero :: Float,
     suerte :: Int,
     factores :: [Factor]
-} deriving (Show)
+  }
+  deriving (Show)
 
-type Factor = (String,Int)
+type Factor = (String, Int)
 
 nombreFactor :: Factor -> String
 nombreFactor = fst
@@ -29,22 +31,24 @@ maiu = UnaPersona "Maiu" 100.0 42 [("inteligencia", 55), ("paciencia", 50)]
 ---------------
 suerteTotal :: Persona -> Int
 suerteTotal unJugador
-    | tieneUnFactor "amuleto" unJugador = suerte unJugador * (valorFactor . encontrarFactor "amuleto" . factores $ unJugador)
-    | otherwise = suerte unJugador
+  | tieneUnFactor "amuleto" unJugador = suerte unJugador * (valorFactor . encontrarFactor "amuleto" . factores $ unJugador)
+  | otherwise = suerte unJugador
 
 tieneUnFactor :: String -> Criterio
-tieneUnFactor unFactor unJugador = (any ((== unFactor) . nombreFactor) . factores ) unJugador && ((> 0) . valorFactor . encontrarFactor unFactor . factores ) unJugador
+tieneUnFactor unFactor unJugador = (any ((== unFactor) . nombreFactor) . factores) unJugador && ((> 0) . valorFactor . encontrarFactor unFactor . factores) unJugador
 
 encontrarFactor :: String -> [Factor] -> Factor
 encontrarFactor unFactor = head . filter ((== unFactor) . nombreFactor)
+
 ---------------
 --- Punto 2 ---
 ---------------
-data Juego = UnJuego {
-    titulo :: String,
+data Juego = UnJuego
+  { titulo :: String,
     ganancia :: Float -> Float,
     criteriosGanadores :: [Criterio]
-} deriving(Show)
+  }
+  deriving (Show)
 
 type Criterio = Persona -> Bool
 
@@ -53,11 +57,12 @@ ruleta :: Juego
 ruleta = UnJuego "La Ruleta" (* 37) [suerteMayorA 80]
 
 suerteMayorA :: Int -> Criterio
-suerteMayorA n = (>n) . suerteTotal
+suerteMayorA n = (> n) . suerteTotal
 
 -- b.
 maquinita :: Float -> Juego
 maquinita jackpot = UnJuego "La Maquinita" (+ jackpot) [suerteMayorA 95, tieneUnFactor "paciencia"]
+
 ---------------
 --- Punto 3 ---
 ---------------
@@ -65,15 +70,16 @@ puedeGanar :: Persona -> Juego -> Bool
 puedeGanar unJugador = cumpleLasCondiciones unJugador . criteriosGanadores
 
 cumpleLasCondiciones :: Persona -> [Criterio] -> Bool
-cumpleLasCondiciones unJugador = foldr (\criterio acum -> criterio unJugador && acum ) True
+cumpleLasCondiciones unJugador = foldr (\criterio acum -> criterio unJugador && acum) True
+
 ---------------
 --- Punto 4 ---
 ---------------
 -- a.
 puedeConseguir :: Persona -> Float -> [Juego] -> Float
 puedeConseguir unJugador apuestaInicial juegos
-    | any (puedeGanar unJugador) juegos = foldr ganancia apuestaInicial . filter (puedeGanar unJugador) $ juegos
-    | otherwise = apuestaInicial
+  | any (puedeGanar unJugador) juegos = foldr ganancia apuestaInicial . filter (puedeGanar unJugador) $ juegos
+  | otherwise = apuestaInicial
 
 -- b.
 puedeConseguir' :: Persona -> Float -> [Juego] -> Float
@@ -95,22 +101,23 @@ nombresPerdedores jugadores = map nombre . perdedores jugadores
 
 perdedores :: [Persona] -> [Juego] -> [Persona]
 perdedores [] _ = []
-perdedores (jugador:jugadores) juegos
-    | not . any (puedeGanar jugador) $ juegos = jugador : perdedores jugadores juegos
-    | otherwise = perdedores jugadores juegos
+perdedores (jugador : jugadores) juegos
+  | not . any (puedeGanar jugador) $ juegos = jugador : perdedores jugadores juegos
+  | otherwise = perdedores jugadores juegos
+
 ---------------
 --- Punto 6 ---
 ---------------
 apostar :: Float -> Juego -> Persona -> Persona
-apostar apuesta unJuego = jugar apuesta unJuego . subirSaldo (- apuesta)
+apostar apuesta unJuego = jugar apuesta unJuego . subirSaldo (-apuesta)
 
 subirSaldo :: Float -> Persona -> Persona
 subirSaldo cantidad unJugador = unJugador {dinero = dinero unJugador + cantidad}
 
 jugar :: Float -> Juego -> Persona -> Persona
 jugar apuesta unJuego unJugador
-    | puedeGanar unJugador unJuego = subirSaldo (ganancia unJuego apuesta) unJugador
-    | otherwise = unJugador
+  | puedeGanar unJugador unJuego = subirSaldo (ganancia unJuego apuesta) unJugador
+  | otherwise = unJugador
 
 ---------------
 --- Punto 7 ---

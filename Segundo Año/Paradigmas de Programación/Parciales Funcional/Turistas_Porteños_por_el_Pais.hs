@@ -1,6 +1,5 @@
-{-# OPTIONS_GHC -Wno-unrecognised-pragmas #-}
 {-# HLINT ignore "Avoid lambda" #-}
-import Text.Show.Functions
+import Text.Show.Functions()
 
 -- Lugar
 type Lugar = (NombreLugar, DistanciaABsAs, [Caracteristica])
@@ -84,7 +83,8 @@ comidasTipicas = ["Alfajores", "Chocolate"]
 --- Punto 2 ---
 ---------------
 puedeIr :: Persona -> [Lugar] -> [NombreLugar]
-puedeIr (_,estilo) = map nombreLugar . filter estilo
+puedeIr (_, estilo) = map nombreLugar . filter estilo
+
 ---------------
 --- Punto 3 ---
 ---------------
@@ -93,7 +93,7 @@ lugarMasElegido personas lugares = elQueMasAparece $ puedenIr personas lugares
 
 puedenIr :: [Persona] -> [Lugar] -> [NombreLugar]
 puedenIr [] _ = []
-puedenIr (persona:personas) lugares = puedeIr persona lugares ++ puedenIr personas lugares
+puedenIr (persona : personas) lugares = puedeIr persona lugares ++ puedenIr personas lugares
 
 elQueMasAparece :: (Eq a, Ord a) => [a] -> a
 elQueMasAparece [] = error "La lista no puede estar vacía"
@@ -102,8 +102,9 @@ elQueMasAparece lista = snd . maximum $ [(cantidadDeVeces lista x, x) | x <- lis
 cantidadDeVeces :: (Eq a) => [a] -> a -> Int
 cantidadDeVeces [] _ = 0
 cantidadDeVeces (x : xs) unElem
-    | unElem == x = 1 + cantidadDeVeces xs unElem
-    | otherwise = cantidadDeVeces xs unElem
+  | unElem == x = 1 + cantidadDeVeces xs unElem
+  | otherwise = cantidadDeVeces xs unElem
+
 ---------------
 --- Punto 4 ---
 ---------------
@@ -116,11 +117,12 @@ puedenIrTodosA (persona : personas) unLugar = estilo persona unLugar && puedenIr
 ---------------
 lugaresCompatibles :: [Persona] -> [Lugar] -> [NombreLugar]
 lugaresCompatibles familia = map nombreLugar . filter (puedenIrTodosA familia)
+
 ---------------
 --- Punto 6 ---
 ---------------
 carlos :: Persona
-carlos = ("Carlos",\lugar -> esPalindromo $ nombreLugar lugar)
+carlos = ("Carlos", \lugar -> esPalindromo $ nombreLugar lugar)
 
 esPalindromo :: String -> Bool
 esPalindromo cadena = cadena == reverse cadena
