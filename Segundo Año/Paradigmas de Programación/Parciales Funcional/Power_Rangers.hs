@@ -1,7 +1,8 @@
 import Data.Char
 import Data.Foldable (maximumBy)
 
------------------- Punto 1 ---
+---------------
+--- Punto 1 ---
 ---------------
 -- a.
 type Persona = ([Habilidad], Bool)

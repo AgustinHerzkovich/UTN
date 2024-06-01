@@ -37,7 +37,8 @@ between x y z = x <= z && y >= z
 deptosDeEjemplo :: [Depto]
 deptosDeEjemplo = [(3, 80, 7500, "Palermo"), (1, 45, 3500, "Villa Urquiza"), (2, 50, 5000, "Palermo"), (1, 45, 5500, "Recoleta")]
 
------------------- Punto 1 ---
+---------------
+--- Punto 1 ---
 ---------------
 -- a.
 mayor :: (Ord b) => (a -> b) -> a -> a -> Bool

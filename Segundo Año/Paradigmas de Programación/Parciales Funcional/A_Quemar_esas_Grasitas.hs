@@ -16,7 +16,8 @@ pancho = Persona 40 120 1
 andres :: Persona
 andres = Persona 22 80 6
 
------------------- Punto 1 ---
+---------------
+--- Punto 1 ---
 ---------------
 estaSaludable :: Persona -> Bool
 estaSaludable unaPersona = (not . esObesa) unaPersona && ((> 5) . tonificacion) unaPersona
