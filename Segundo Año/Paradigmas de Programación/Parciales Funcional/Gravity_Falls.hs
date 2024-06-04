@@ -5,6 +5,8 @@
 ---------------
 --- Punto 1 ---
 ---------------
+{-# OPTIONS_GHC -Wno-unrecognised-pragmas #-}
+{-# HLINT ignore "Use !!" #-}
 data Persona = UnaPersona
   { edad :: Int,
     items :: [Item],
@@ -129,7 +131,7 @@ esLetra =  (`elem` ['a'..'z'])
 --- Punto 3 ---
 ---------------
 vigenere :: String -> String -> String
-vigenere textoClave textoEncriptado = zipWithIf desencriptarLetra esLetra (cycle textoClave) textoEncriptado
+vigenere textoClave textoEncriptado = desencrypter (alinear textoClave textoEncriptado) textoEncriptado
 
 -- Funciones auxiliares
 alinear :: String -> String -> String
