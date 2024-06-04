@@ -5,8 +5,6 @@
 ---------------
 --- Punto 1 ---
 ---------------
-{-# OPTIONS_GHC -Wno-unrecognised-pragmas #-}
-{-# HLINT ignore "Use !!" #-}
 data Persona = UnaPersona
   { edad :: Int,
     items :: [Item],
@@ -111,13 +109,15 @@ abecedario = ['a' .. 'z']
 
 -- b
 desencriptarLetra :: Char -> Char -> Char
-desencriptarLetra letraClave letraEncriptada = head . drop distanciaEquivalente . abecedarioDesde $ letraClave
+desencriptarLetra letraClave letraEncriptada
+  | esLetra letraEncriptada = head . drop distanciaEquivalente . abecedarioDesde $ letraClave
+  | otherwise = letraEncriptada
     where
         distanciaEquivalente = length . takeWhile (/= letraEncriptada) . reverse . abecedarioDesde $ letraClave
 
 -- c.
 cesar :: Char -> String -> String
-cesar = zipWithIf desencriptarLetra esLetra . abecedarioDesde
+cesar letraClave = map (desencriptarLetra letraClave)
 
 esLetra :: Char -> Bool
 esLetra =  (`elem` ['a'..'z'])
@@ -129,13 +129,20 @@ esLetra =  (`elem` ['a'..'z'])
 --- Punto 3 ---
 ---------------
 vigenere :: String -> String -> String
-vigenere textoClave textoEncriptado = zipWithIf desencriptarLetra esLetra (alinearClave textoClave textoEncriptado) textoEncriptado
+vigenere textoClave textoEncriptado = zipWithIf desencriptarLetra esLetra (cycle textoClave) textoEncriptado
 
--- Función para repetir la clave hasta la longitud del mensaje
-alinearClave :: String -> String -> String
-alinearClave clave mensaje = zipWith (cambiarPorClave clave) [0 ..] mensaje
+-- Funciones auxiliares
+alinear :: String -> String -> String
+alinear textoClave textoEncriptado = relleno abecedarioNuevo textoEncriptado
   where
-    claveLength = length clave
-    cambiarPorClave :: String -> Int -> Char -> Char
-    cambiarPorClave _ _ c | not (c `elem` ['a' .. 'z'] ++ ['A' .. 'Z']) = c
-    cambiarPorClave clave index _ = clave !! (index `mod` claveLength)
+    abecedarioNuevo = take (length textoEncriptado) . cycle $ textoClave
+
+relleno :: [Char] -> [Char] -> [Char]
+relleno _ [] = []
+relleno (x:xs) (y:ys)
+  | esLetra y = x : relleno xs ys
+  | otherwise = ' ' : relleno (x:xs) ys
+
+desencrypter :: [Char] -> [Char] -> [Char]
+desencrypter _ [] = []
+desencrypter (x:xs) (y:ys) = desencriptarLetra x y : desencrypter xs ys 
