@@ -290,3 +290,7 @@ plegarADerecha1 :: (a -> a -> a) -> [a] -> a
 plegarADerecha1 _ [] = error "empty list"
 plegarADerecha1 _ [x] = x
 plegarADerecha1 operacion (x:xs) = x `operacion` foldr1 operacion xs
+
+-- uncurry
+descurrificar :: (a -> b -> c) -> (a, b) -> c
+descurrificar f (x,y) = f x y

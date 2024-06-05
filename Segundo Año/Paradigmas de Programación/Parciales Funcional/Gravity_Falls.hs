@@ -111,15 +111,21 @@ abecedario = ['a' .. 'z']
 
 -- b
 desencriptarLetra :: Char -> Char -> Char
-desencriptarLetra letraClave letraEncriptada
-  | esLetra letraEncriptada = head . drop distanciaEquivalente . abecedarioDesde $ letraClave
-  | otherwise = letraEncriptada
+desencriptarLetra letraClave letraEncriptada = desencriptarDeluxe (abecedarioDesde letraClave) abecedario letraEncriptada
     where
-        distanciaEquivalente = length . takeWhile (/= letraEncriptada) . reverse . abecedarioDesde $ letraClave
+        desencriptarDeluxe :: [Char] -> [Char] -> Char -> Char
+        desencriptarDeluxe (x:xs) (y:ys) letraEncriptada
+          | x == letraEncriptada = y
+          | otherwise = desencriptarDeluxe xs ys letraEncriptada
+
+desencriptarLetra' :: Char -> Char -> Char
+desencriptarLetra' letraClave letraEncriptada = head . drop distanciaEquivalente $ abecedario
+  where
+    distanciaEquivalente = length . takeWhile (/= letraEncriptada)  . abecedarioDesde $ letraClave
 
 -- c.
 cesar :: Char -> String -> String
-cesar letraClave = map (desencriptarLetra letraClave)
+cesar = zipWithIf desencriptarLetra esLetra . repeat 
 
 esLetra :: Char -> Bool
 esLetra =  (`elem` ['a'..'z'])
@@ -131,20 +137,8 @@ esLetra =  (`elem` ['a'..'z'])
 --- Punto 3 ---
 ---------------
 vigenere :: String -> String -> String
-vigenere textoClave textoEncriptado = desencrypter (alinear textoClave textoEncriptado) textoEncriptado
+vigenere textoClave textoEncriptado = zipWithIf desencriptarLetra esLetra (alinear textoClave textoEncriptado) textoEncriptado
 
--- Funciones auxiliares
+-- Función auxiliar
 alinear :: String -> String -> String
-alinear textoClave textoEncriptado = relleno abecedarioNuevo textoEncriptado
-  where
-    abecedarioNuevo = take (length textoEncriptado) . cycle $ textoClave
-
-relleno :: [Char] -> [Char] -> [Char]
-relleno _ [] = []
-relleno (x:xs) (y:ys)
-  | esLetra y = x : relleno xs ys
-  | otherwise = ' ' : relleno (x:xs) ys
-
-desencrypter :: [Char] -> [Char] -> [Char]
-desencrypter _ [] = []
-desencrypter (x:xs) (y:ys) = desencriptarLetra x y : desencrypter xs ys 
+alinear textoClave textoEncriptado = take (length textoEncriptado) . cycle $ textoClave
