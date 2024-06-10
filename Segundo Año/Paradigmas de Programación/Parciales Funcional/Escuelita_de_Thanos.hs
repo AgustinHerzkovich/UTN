@@ -38,8 +38,8 @@ reducirALaMitad unUniverso = take mitad unUniverso
 
 chasquearUnUniverso :: Guantelete -> Universo -> Universo
 chasquearUnUniverso unGuantelete unUniverso
-  | estaCompleto unGuantelete && material unGuantelete == "uru" = reducirALaMitad unUniverso
-  | otherwise = error "El guantelete no cumple los requisitos"
+  | estaCompleto unGuantelete = reducirALaMitad unUniverso
+  | otherwise = unUniverso
 
 ---------------
 --- Punto 2 ---
@@ -100,8 +100,8 @@ gemaLoca unaGema = unaGema . unaGema
 ---------------
 --- Punto 4 ---
 ---------------
-guanteleteEjemplo :: Guantelete
-guanteleteEjemplo = UnGuantelete "goma" [tiempo, alma "usar Mjolnir", gemaLoca (alma "programacion en Haskell")]
+guanteleteDeGoma :: Guantelete
+guanteleteDeGoma = UnGuantelete "goma" [tiempo, alma "usar Mjolnir", gemaLoca (alma "programacion en Haskell")]
 
 ---------------
 --- Punto 5 ---
@@ -118,7 +118,8 @@ Al aplicar el foldr con la operación $ lo que se está haciendo es lo siguiente
 gemaLoca (alma "programacion en Haskell") $ alma "usar Mjolnir" $ tiempo alfred
 por ende el efecto lado se da ya que la lista de gemas, al fin y al cabo son listas de (Personaje -> Personaje),
 por lo que si yo le paso un personaje a la gema tiempo, esto me devuelve otro personaje, el cual se pasa a la siguiente gema,
-y así hasta llegar a la última gema, obteniendo este "efecto de lado" que parece que se está aplicando de manera secuencial.
+y así hasta llegar a la última gema, obteniendo este "efecto de lado" que hace parecer que las gemas se 
+aplican de manera secuencial.
 -}
 ---------------
 --- Punto 6 ---
