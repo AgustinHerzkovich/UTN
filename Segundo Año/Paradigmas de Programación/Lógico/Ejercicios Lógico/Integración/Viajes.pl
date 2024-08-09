@@ -107,7 +107,7 @@ distanciaEnEscalas(Ciudad1, Ciudad2, Distancia) :-
     nth1(Posicion2, Escalas, escala(Ciudad2, _)),
     Posicion1 \= Posicion2,
     Diferencia is Posicion2 - Posicion1,
-    abs(Diferencia, Distancia),
+    abs(Diferencia, Distancia).
 
 escalas(Vuelo, Escalas) :-
     esVuelo(Vuelo),
