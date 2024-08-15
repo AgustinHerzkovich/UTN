@@ -56,6 +56,12 @@ cucarachofobico(Personaje) :-
 
 personaje(Personaje) :-
     peso(Personaje, _).
+personaje(Personaje) :-
+    comio(Personaje, _).
+personaje(Personaje) :-
+    persigue(Personaje, _).
+personaje(Personaje) :-
+    persigue(_, Personaje).
 
 comioCucaracha(Personaje) :-
     comio(Personaje, cucaracha(_, _, _)).
@@ -84,23 +90,30 @@ persigue(shenzi, scar).
 persigue(banzai, timon).
 
 cuantoEngorda(Personaje, Peso) :-
-    personaje(Personaje),
+    distinct(Peso, (personaje(Personaje),
+    bichosComidos(Personaje, PesoTotalBichos),
+    victimasPerseguidas(Personaje, PesoTotalVictimas),
+    victimasEngordadas(Personaje, PesoTotalAlimentosVictimas),
+    Peso is PesoTotalBichos + PesoTotalVictimas + PesoTotalAlimentosVictimas)).
+
+bichosComidos(Personaje, PesoTotalBichos) :-
     findall(PesoBicho, (comio(Personaje, Bicho), pesoBicho(Bicho, PesoBicho)), PesosBichos),
-    sumlist(PesosBichos, PesoTotalBichos),
+    sumlist(PesosBichos, PesoTotalBichos).
+
+victimasPerseguidas(Personaje, PesoTotalVictimas) :-
     findall(PesoVictima, (persigue(Personaje, Victima), peso(Victima, PesoVictima)), PesosVictimas),
-    sumlist(PesosVictimas, PesoTotalVictimas),
+    sumlist(PesosVictimas, PesoTotalVictimas).
+
+victimasEngordadas(Personaje, PesoTotalAlimentosVictimas) :-
     findall(AlimentoVictima, (persigue(Personaje, Victima), cuantoEngorda(Victima, AlimentoVictima)), AlimentosVictimas),
-    sumlist(AlimentosVictimas, PesoTotalAlimentosVictimas),
-    Peso is PesoTotalBichos + PesoTotalVictimas + PesoTotalAlimentosVictimas,
-    !.
+    sumlist(AlimentosVictimas, PesoTotalAlimentosVictimas).
 
 %%%%%%%%%%%%
 % Punto 03 %
 %%%%%%%%%%%%
 rey(Rey) :-
     personaje(Rey),
-    animal(Animal),
-    forall(animal(Animal), adora(Rey, Animal)),
+    todosAdoran(Rey),
     soloUnoLoPersigue(Rey).
 
 animal(Animal) :-
@@ -109,19 +122,28 @@ animal(Animal) :-
 animal(Animal) :-
     personaje(Animal).
 
+todosAdoran(PersonajeAdorado) :-
+    animal(PersonajeAdorado),
+    forall(animal(Animal), adora(PersonajeAdorado, Animal)).
+
 adora(PersonajeAdorado, Adorador) :-
-    esBicho(Adorador),
+    comio(PersonajeAdorado, _),
+    animal(Adorador),
     not(comio(PersonajeAdorado, Adorador)).
 
 adora(PersonajeAdorado, Adorador) :-
-    personaje(Adorador),
+    animal(Adorador),
     not(persigue(PersonajeAdorado, Adorador)).
 
 soloUnoLoPersigue(Personaje) :-
     persigue(Perseguidor, Personaje),
-    personaje(OtroPerseguidor),
-    not(persigue(OtroPerseguidor, Personaje)),
-    Perseguidor \= OtroPerseguidor.
+    forall((persigue(OtroPerseguidor, _), OtroPerseguidor \= Perseguidor), not(persigue(OtroPerseguidor, Personaje))).
+
 %%%%%%%%%%%%
 % Punto 04 %
 %%%%%%%%%%%%
+% a. Polimorfismo para el predicado comio
+
+% b. Recursividad no se utilizó
+
+% c. Inversibilidad para los predicados principales
