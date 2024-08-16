@@ -61,11 +61,11 @@ vieneAcompaniado(Visitante) :-
     grupo(Visitante, _).
 
 bienestar(Visitante, felicidadPlena) :-
-    sumaSentimientos(Visitante, 0),
+    sentimientosNulos(Visitante),
     vieneAcompaniado(Visitante).
 
 bienestar(Visitante, podriaEstarMejor) :-
-    sumaSentimientos(Visitante, 0),
+    sentimientosNulos(Visitante),
     vieneSolo(Visitante).
 
 bienestar(Visitante, podriaEstarMejor) :-
@@ -86,8 +86,8 @@ sumaSentimientos(Visitante, Suma) :-
     visitante(Visitante, _, sentimiento(Hambre, Aburrimiento)),
     Suma is Hambre + Aburrimiento.
 
-% TODO: ejercicio para casa!
-% Abstraer los sentimientos y evitar la sutil repeticion de logica.
+sentimientosNulos(Visitante) :-
+    sumaSentimientos(Visitante, 0).
 
 %%%%%%%%%%%%%
 % Punto 03 %
@@ -175,8 +175,9 @@ maximaCantidadDeGiros(Giros) :-
 %%%%%%%%%%%%%
 % Punto 05 %
 %%%%%%%%%%%%%
-% opcionDeEntretenimiento(Mes, Visitante, Opcion)
-    % TODO: hacer en casa (y que sea inversible)
+opcionDeEntretenimiento(Mes, Visitante, Opcion) :-
+    opcionParticularDeEntretenimiento(Mes, Visitante, Opcion).
+
 opcionParticularDeEntretenimiento(_, Visitante, PuestoDeComida) :-
     puedeComprar(Visitante, PuestoDeComida).
 

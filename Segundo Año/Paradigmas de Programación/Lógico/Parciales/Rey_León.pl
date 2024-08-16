@@ -127,12 +127,11 @@ todosAdoran(PersonajeAdorado) :-
     forall(animal(Animal), adora(PersonajeAdorado, Animal)).
 
 adora(PersonajeAdorado, Adorador) :-
-    comio(PersonajeAdorado, _),
-    animal(Adorador),
+    esBicho(Adorador),
     not(comio(PersonajeAdorado, Adorador)).
 
 adora(PersonajeAdorado, Adorador) :-
-    animal(Adorador),
+    personaje(Adorador),
     not(persigue(PersonajeAdorado, Adorador)).
 
 soloUnoLoPersigue(Personaje) :-
