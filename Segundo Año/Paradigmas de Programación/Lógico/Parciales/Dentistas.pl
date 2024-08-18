@@ -143,8 +143,7 @@ esCaro(Servicio, pacienteParticular(_, Edad)) :-
 % serviciosMalHechos(dentista, [servicioMalRealizado]).
 serviciosMalHechos(Dentista, Servicios) :-
     servicioRealizado(_, Dentista, _),
-    findall(Servicio, malRealizado(Dentista, Servicio), ServiciosMalos),
-    sort(ServiciosMalos, Servicios).
+    findall(Servicio, malRealizado(Dentista, Servicio), Servicios).
 
 malRealizado(Dentista, Servicio) :-
     dentista(OtroDentista),
