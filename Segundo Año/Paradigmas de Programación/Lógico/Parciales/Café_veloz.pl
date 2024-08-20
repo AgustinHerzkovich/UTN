@@ -30,16 +30,28 @@ tomo(balbo, producto(gatoreit, 2)).
 % Punto 01 %
 %%%%%%%%%%%%
 % a.
-tomo(passarella, Bebida) :-
-    not(tomo(maradona, Bebida)).
+tomo(passarella, Consumible) :-
+    consumible(Consumible),
+    not(tomo(maradona, Consumible)).
 
 % b.
-tomi(pedemonti, Bebida) :-
-    tomo(maradona, Bebida),
-    not(tomo(chamot, Bebida)).
+tomi(pedemonti, Consumible) :-
+    consumible(Consumible),
+    tomo(maradona, Consumible),
+    not(tomo(chamot, Consumible)).
 
 % c.
 % no se agrega cláusula y con eso es suficiente.
+
+consumible(Consumible) :-
+    tomo(_, Consumible).
+consumible(Consumible) :-
+    maximo(Consumible, _).
+consumible(Consumible) :-
+    sustanciaProhibida(Consumible).
+consumible(Consumible) :-
+    composicion(_, Sustancias),
+    member(Consumible, Sustancias).
 
 %%%%%%%%%%%%
 % Punto 02 %
@@ -102,7 +114,74 @@ conoce(Jugador1, Jugador2) :-
 %%%%%%%%%%%%
 % Punto 04 %
 %%%%%%%%%%%%
+atiende(cahe, maradona).
+atiende(cahe, chamot).
+atiende(cahe, balbo).
+atiende(zin, caniggia).
+atiende(cureta, pedemonti).
+atiende(cureta, basualdo).
+
+chanta(Medico) :-
+    medico(Medico),
+    forall(atiende(Medico, Jugador), puedeSerSuspendido(Jugador)).
+
+medico(Medico) :-
+    atiende(Medico, _).
 
 %%%%%%%%%%%%
 % Punto 05 %
 %%%%%%%%%%%%
+nivelFalopez(efedrina, 10).
+nivelFalopez(cocaina, 100).
+nivelFalopez(extasis, 120).
+nivelFalopez(omeprazol, 5).
+
+cuantaFalopaTiene(Jugador, AlteracionEnSangre) :-
+    jugador(Jugador),
+    findall(NivelAlteracion, nivelAlteracion(Jugador, NivelAlteracion), NivelesDeAlteracion),
+    sumlist(NivelesDeAlteracion, AlteracionEnSangre).
+
+nivelAlteracion(Jugador, NivelAlteracion) :-
+    tomo(Jugador, Consumible),
+    alteracionConsumible(Consumible, NivelAlteracion).
+
+alteracionConsumible(producto(_, _), 0).
+alteracionConsumible(sustancia(NombreSustancia), NivelAlteracion) :-
+    nivelFalopez(NombreSustancia, NivelAlteracion).
+alteracionConsumible(compuesto(NombreCompuesto), NivelAlteracion) :-
+    composicion(NombreCompuesto, Sustancias),
+    sumaFalopez(Sustancias, NivelAlteracion).
+
+sumaFalopez(Sustancias, FalopezTotal) :-
+    findall(Falopez, (member(Sustancia, Sustancias), nivelFalopez(Sustancia, Falopez)), NivelesDeFalopa),
+    sumlist(NivelesDeFalopa, FalopezTotal).
+
+%%%%%%%%%%%%
+% Punto 06 %
+%%%%%%%%%%%%
+medicoConProblemas(Medico) :-
+    findall(Jugador, atiendeJugadorConflictivo(Medico, Jugador), JugadoresConflictivos),
+    length(JugadoresConflictivos, Cantidad),
+    Cantidad > 3.
+
+atiendeJugadorConflictivo(Medico, Jugador) :-
+    atiende(Medico, Jugador),
+    esConflictivo(Jugador).
+
+esConflictivo(Jugador) :-
+    puedeSerSuspendido(Jugador).
+esConflictivo(Jugador) :-
+    conoce(Jugador, maradona).
+
+%%%%%%%%%%%%
+% Punto 07 %
+%%%%%%%%%%%%
+programaTVFantinesco(Lista) :-
+    findall(Jugador, puedeSerSuspendido(Jugador), JugadoresSuspendidos),
+    combinaciones(Lista, JugadoresSuspendidos).
+
+combinaciones([Cabeza | Combinacion], [Cabeza | Resto]) :-
+    combinaciones(Combinacion, Resto).
+combinaciones(Combinacion, [_ | Resto]):-
+    combinaciones(Combinacion, Resto).
+combinaciones([], []).
