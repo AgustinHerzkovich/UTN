@@ -139,9 +139,17 @@ recomendacion(recomiendaCupon(_, _, _)).
 %%%%%%%%%%%%
 % Punto 06 %
 %%%%%%%%%%%%
-/* TODO
 cadenaDeRecomendacionesValida(Marca, Fecha, Lista) :-
-    findall(Recomendacion, recomendacion)
+    cadenaDeRecomendacionesDeUsuario(_, Marca, Fecha, Lista).
 
-cadenaDeRecomendacionesDeUsuario(Usuario, ) :-
-*/
+% Caso base: La cadena de recomendaciones termina cuando un usuario recomienda un cupón
+% pero la persona recomendada no lo recomienda a nadie más.
+cadenaDeRecomendacionesDeUsuario(Usuario, Marca, Fecha, [Usuario]) :-
+    accionDeUsuario(Usuario, recomiendaCupon(Marca, Fecha, PersonaRecomendada)),
+    \+ accionDeUsuario(PersonaRecomendada, recomiendaCupon(Marca, Fecha, _)).
+
+% Recursión: Si la persona recomendada vuelve a recomendar el mismo cupón en la misma fecha,
+% entonces se continúa la cadena.
+cadenaDeRecomendacionesDeUsuario(Usuario, Marca, Fecha, [Usuario | RestoDeCadena]) :-
+    accionDeUsuario(Usuario, recomiendaCupon(Marca, Fecha, PersonaRecomendada)),
+    cadenaDeRecomendacionesDeUsuario(PersonaRecomendada, Marca, Fecha, RestoDeCadena).
