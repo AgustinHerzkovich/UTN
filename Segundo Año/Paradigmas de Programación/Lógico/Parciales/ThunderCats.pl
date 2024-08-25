@@ -72,9 +72,9 @@ fuerza(Personaje, Fuerza) :-
     personaje(thundercat(Personaje, Fuerza)).
 fuerza(Personaje, Fuerza) :-
     personaje(mutante(Personaje, Fuerza)).
-personaje(Personaje, 3) :-
+fuerza(Personaje, 3) :-
     faccionPersonaje(Personaje, lunatack).
-personaje(Personaje, 8) :-
+fuerza(Personaje, 8) :-
     faccionPersonaje(Personaje, momia).
 
 %%%%%%%%%%%%
@@ -111,7 +111,6 @@ notTraidor(Personaje) :-
 % Punto 05 %
 %%%%%%%%%%%%
 puedeGuiarA(Guia, Personaje) :-
-    Guia \= Personaje,
     mismaFaccionPersonaje(Guia, Personaje),
     guiasVsLiderVsFuerte(Guia, Personaje).
 
@@ -129,12 +128,14 @@ esMalo(Personaje) :-
     faccionMala(Faccion).
 esMalo(Personaje) :-
     traidor(Personaje).
+esMalo(mummRa).
 
 faccionMala(mutante).
 faccionMala(lunatack).
-faccionMala(mummRa).
 
 masFuerte(Fuerte, Debil) :-
+    faccionPersonajeInversible(Fuerte),
+    faccionPersonajeInversible(Debil),
     fuerza(Fuerte, MayorFuerza),
     fuerza(Debil, MenorFuerza),
     MayorFuerza > MenorFuerza.
@@ -155,9 +156,18 @@ fuerzaDeGuiado(Personaje, Fuerza) :-
 %%%%%%%%%%%%
 % Punto 07 %
 %%%%%%%%%%%%
-nivelDeGuia(Personaje, NivelDeGuia) :-
-    
+nivelDeGuia(Personaje, 1) :-
+    puedeGuiarA(Personaje, _).
+nivelDeGuia(Personaje, Nivel) :-
+    puedeGuiarA(Personaje, Alguien),
+    nivelDeGuia(Alguien, Subnivel),
+    Nivel is Subnivel + 1.
+
 %%%%%%%%%%%%
 % Punto 08 %
 %%%%%%%%%%%%
-
+seArmoLaHecatombe(Personajes) :-
+    findall(Faccion, (member(Personaje, Personajes), faccionPersonaje(Personaje , Faccion)), Facciones),
+    sinRepetidos(Facciones, Personajes),
+    length(Personajes, Cantidad),
+    Cantidad >= 3.
