@@ -37,13 +37,12 @@ tieneHerramienta(winston, varitaDeNeutrones).
 % Punto 02 %
 %%%%%%%%%%%%
 satisfaceNecesidad(Integrante, Herramienta) :-
-    tieneHerramienta(Integrante, Herramienta),
-    not(esAspiradora(Herramienta)). 
-satisfaceNecesidad(Integrante, asapiradora(Potencia)) :-
-    tieneHerramienta(Integrante, aspiradora(PotenciaMayor)),
-    PotenciaMayor >= Potencia.
+    tieneHerramienta(Integrante, UnaHerramienta),
+    cumpleHerramienta(UnaHerramienta, Herramienta).
 
-esAspiradora(aspiradora(_)).
+cumpleHerramienta(Herramienta, Herramienta).
+cumpleHerramienta(aspiradora(Nivelmayor), aspiradora(Nivelmenor)) :-
+    Nivelmayor > Nivelmenor.
 
 %%%%%%%%%%%%
 % Punto 03 %
@@ -58,6 +57,7 @@ puedeRealizar(Integrante, Tarea) :-
 
 tarea(Tarea) :-
     herramientasRequeridas(Tarea, _).
+
 %%%%%%%%%%%%
 % Punto 04 %
 %%%%%%%%%%%%
