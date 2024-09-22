@@ -1,0 +1,9 @@
+a)	El deadlock se produce si un proceso pide un recurso que no está disponible, se bloquea y luego otro proceso pide un recurso que ya había pedido el proceso que quedó bloqueado, entonces ambos se bloquean y se produce el deadlock.
+
+b)	mutex = 1;
+	wait(mutex) // antes de pedir el primer recurso
+	signal(mutex) // luego de pedir el último recurso
+
+con este orden de semáforos, garantizo que no se cumple la retención y espera, dado que un proceso estaría adquiriendo más de un recurso. Elimino una de las condiciones necesarias.
+
+c)	Modificando get_recursos() para que devuelva tres IDs de recursos en orden ascendente, de esta manera aseguramos que si se repiten los recursos, van a estar en el mismo orden, y así evitamos la espera circular.

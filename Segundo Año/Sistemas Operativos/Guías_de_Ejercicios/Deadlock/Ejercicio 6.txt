@@ -1,0 +1,1 @@
+Es un deadlock, ya que si fuese livelock, la ejecución de B se vería afectada por A, y, dado que estos no utilizan los mismos recursos, tiene sentido que el deadlock no sea un problema, tal como nos aclara "Usted".

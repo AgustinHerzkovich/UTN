@@ -1,0 +1,18 @@
+a)	Prevención: Desventajoso dado que el uso del sistema 	tiene fines de usuario, no haría falta una 				   política tan restrictiva.
+
+Evasión: Mucho overhead para los usos que se le da, en 	caso de deadlock lo más grave que puede pasar es que finalizar el proceso y listo. (medicina muy costosa para lo que pretende curar)
+
+Detección: Este es el más conveniente debido a que un posible deadlock no sería muy grave.
+
+
+b) 	En este caso el deadlock es un gran problema, la falta de deadlock no se negocia.
+
+Prevención podría ser lo mejor dado que no se quiere tener deadlock, y además el sistema ya cuenta con mucho overhead, por lo que no es conveniente agregarle más mediante evasión. Se puede permitir un uso poco flexible dado que es un sistema de aeronaves y siempre se ejecuta de la misma manera (usualmente) con el mismo fin.
+
+c)	Prevención sería muy restrictivo con el uso de los recursos en este caso dado que se cuenta con muchos usuarios.
+
+Evasión: Sistema con mucha actividad, por lo que no conviene que tenga mucho overhead.
+
+Detección: Más conveniente. Si hay un deadlock entre dos aplicaciones y debo volver atrás, la base de datos permite devolver al último estado seguro. (rollback)
+
+d)	Dado que se requiere alta flexibilidad, prevención no es viable, y dado que se quiere evitar deadlock, nos decantamos por evasión. Teniendo en cuenta la baja cantidad de usuarios, el overhead no sería gran problema.

@@ -1,0 +1,35 @@
+1)
+	a)
+		FIFO porque se ejecutan en orden de llegada.
+		SJF podría ser también porque los procesos se ejecutan en orden de duración.
+		SRT también podría ser porque por más que haya desalojo quedaría igual que con SJF hasta el instante 6.
+		Prioridades con y sin desalojo pueden ser dado que puede ser tanto SJF como SRT.
+		HRRN no podemos saberlo porque no sabemos en qué instante llegan los procesos para calcular su tiempo de espera.
+		RR puede ser con un quantum mayor o igual a 3.
+		VRR con quantum mayor o igual a 3 lo mismo.
+		Cola multinivel y Feedback también.
+		En conclusión, podrían ser todos.
+
+	b) 	El algoritmo utilizado es un VRR de Quantum Q = 3.  	Esto se puede ver dado que la máxima ráfaga de CPU 		es de 3, pero además se puede notar que cuando un 		proceso ejecuta menos de 3 ráfagas, luego al volver 	a running, ejecuta las restantes debido a que fue 		pasado a la cola más prioritaria con un quantum 		variable de Q' = Q - QConsumido. Y si un proceso 		quiere ejecutar más de 3 ráfagas, se aprecia que 		este es desalojado luego de consumir el quantum, y 		pasa a ejecutar el siguiente proceso ya sea porque 		estaba en la cola más prioritaria o porque era el 		primero en la cola READY normal.
+
+
+2)
+	a) VRR Q = 2.
+	T = 4 Ejecuta KA porque al haber consumido 1 de Quantum, está en la cola prioritaria con Q' = 2-1, y C está en la cola normal ya que consumió todo el Quantum y se bloqueó, en este momento ejecuta KA la ráfaga que le quedaba de 1 y vuelve a la cola normal donde el primero es KB por haber llegado en T = 3.
+
+	T = 16, KB está en cola prioritaria con Q' = 1, en la cola normal están KC primero y luego KA, decide ejecutar KB por estar en la cola prioritaria y termina, luego viene KC ejecuta uno y pasa a la cola prioritaria y viene KA, ejecuta 2 y va al final de la cola normal.
+
+	b) 
+
+	c) KC podría estar utilizando FIFO en caso de que UC2 llegue en el instante T = 0 y UC1 en el instante T = 1, ya que primero ejecuta todo UC2 y luego UC1.
+
+	d) Que al bloquearse un ULT, no necesariamente se bloquea todo el KLT, por ende puede seguir ejecutando otro ULT del mismo KLT.
+
+	e) En caso de utilizarse un SJF, podría haberse terminado antes.
+
+3)
+	a) Se determina un error en el Gantt a partir del instante T = 5, ya que en este instante se desbloquea KLT1 por fin de I/O, a su vez KLT2 es desalojado por fin de Quantum, y en un RR es más prioritario el desalojo por fin de Quantum que el fin de I/O, por lo que debería continuar ejecutando KLT2, ahora bien, dentro de KLT2 el algoritmo es SJF, y el que tiene menor estimación a ejecutar es ULT1 (1 vs 4), por lo que debería ejecutar ULT1 y no ULT2.
+
+	b) Alfa debe tender a 0 para que ULT1 desaloje a ULT2 en el instante T = 13
+
+	c) Cambiaría en el instante T = 10, ya que ULT1 no podría ejecutar porque, al no haber jacketing, el hecho de que ULT2 se bloquee implica que todos los demás ULTs del KLT se bloqueen.
