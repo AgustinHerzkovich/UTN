@@ -1,5 +1,3 @@
-// example.wlk
-// example.wlk
 object tom {
   var energia = 100
 
