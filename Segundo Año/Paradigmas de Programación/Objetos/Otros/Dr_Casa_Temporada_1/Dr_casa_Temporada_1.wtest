@@ -1,0 +1,81 @@
+import Dr_Casa_Temporada_1.*
+
+describe "Tests de Dr Casa con Logan viviendo un día" {
+    // Escenario inicial
+    var malaria1 = new Infecciosa(celulasAmenazadas = 500)
+    var otitis = new Infecciosa(celulasAmenazadas = 100)
+    var lupus = new Autoinmune(celulasAmenazadas = 10000)
+    var malaria2 = new Infecciosa(celulasAmenazadas = 800)
+    var logan = new Persona(temperatura = 36, celulas = 3000000)
+    var frank = new Persona(temperatura = 36, celulas = 3500000)
+
+    method initialize() {
+        logan.contraerEnfermedad(malaria1)
+        logan.contraerEnfermedad(otitis)
+        logan.contraerEnfermedad(lupus)
+
+        // 1.
+        frank.contraerEnfermedad(malaria2)
+
+        // 2.
+        malaria1.reproducirse()
+
+        // 3.
+        logan.vivirDias(1)
+    }
+    
+    // a.
+        test "Células afectadas por enfermades agresivas en Logan: 0" {
+            assert.equals(0, logan.celulasAfectadasAgresivas())
+        }
+    
+    // b.
+        test "Enfermedad que más afecta a Logan: Lupus" {
+            assert.equals(lupus, logan.enfermedadQueMasAfecta())
+        }
+    
+    // c.
+        test "Logan no está en coma" {
+            assert.notThat(logan.estaEnComa())
+        }
+}
+
+describe "Tests de dr casa con Logan viviendo 31 días" {
+    // Escenario inicial
+    var malaria1 = new Infecciosa(celulasAmenazadas = 500)
+    var otitis = new Infecciosa(celulasAmenazadas = 100)
+    var lupus = new Autoinmune(celulasAmenazadas = 10000)
+    var malaria2 = new Infecciosa(celulasAmenazadas = 800)
+    var logan = new Persona(temperatura = 36, celulas = 3000000)
+    var frank = new Persona(temperatura = 36, celulas = 3500000)
+
+    method initialize() {
+        logan.contraerEnfermedad(malaria1)
+        logan.contraerEnfermedad(otitis)
+        logan.contraerEnfermedad(lupus)
+
+        // 1.
+        frank.contraerEnfermedad(malaria2)
+
+        // 2.
+        malaria1.reproducirse()
+
+        // 3.
+        logan.vivirDias(31)
+    }
+
+    // a.
+        test "Células afectadas por enfermades agresivas en Logan: 10000" {
+            assert.equals(10000, logan.celulasAfectadasAgresivas())
+        }
+    
+    // b.
+        test "Enfermedad que más afecta a Logan: Lupus" {
+            assert.equals(lupus, logan.enfermedadQueMasAfecta())
+        }
+    
+    // c.
+        test "Logan está en coma" {
+            assert.that(logan.estaEnComa())
+        }
+}
