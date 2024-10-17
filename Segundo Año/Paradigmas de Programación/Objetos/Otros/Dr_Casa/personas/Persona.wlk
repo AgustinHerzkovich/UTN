@@ -1,6 +1,7 @@
 // Persona.wlk
 class Persona {
   const enfermedades = []
+  const property sangre
   
   var temperatura
   var cantidadCelulas
@@ -65,4 +66,31 @@ class Persona {
       enfermedad.estaCurada()
     }
   }
+
+  method donarA(unaPersona, unaCantidad) {
+    self.verificarCantidadADonar(unaCantidad)
+    self.verificarCompatibilidad(unaPersona)
+    self.destruirCelulas(unaCantidad)
+    unaPersona.aumentarCelulas(unaCantidad)
+  }
+
+  method verificarCantidadADonar(unaCantidad) {
+    if (!self.cantidadCorrectaDonacion(unaCantidad)) {
+      throw new Exception(message = "No puede donar esa cantidad de células")
+    }
+  }
+
+  method verificarCompatibilidad(unaPersona) {
+    if (!self.esCompatibleCon(unaPersona)) {
+      throw new Exception(message = "No puede donar, no son compatibles")
+    }
+  }
+
+  method aumentarCelulas(unaCantidad) {
+    cantidadCelulas += unaCantidad
+  }
+
+  method cantidadCorrectaDonacion(unaCantidad) = unaCantidad.between(501, cantidadCelulas / 4)
+
+  method esCompatibleCon(unaPersona) = sangre.compatibleCon(unaPersona.sangre())
 }

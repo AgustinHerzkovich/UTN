@@ -1,8 +1,13 @@
+// test/Dr_casa_Temporada.wtest
+// test/Dr_casa_Temporada.wtest
+// test/Dr_casa_Temporada.wtest
+// test/Dr_casa_Temporada.wtest
 import personas.Persona.*
 import personas.Medico.*
 import personas.JefeDeDepartamento.*
 import enfermedades.EnfermedadAutoinmune.*
 import enfermedades.EnfermedadInfecciosa.*
+import sangre.Sangre.*
 
 describe "Dr Casa - Temporada 1" {
 
@@ -11,8 +16,8 @@ describe "Dr Casa - Temporada 1" {
   const malaria800 = new EnfermedadInfecciosa(cantidadCelulasAmenazadas = 800)
   const lupus10000 = new EnfermedadAutoinmune(cantidadCelulasAmenazadas = 10000)
 
-  const frank = new Persona(temperatura = 36, cantidadCelulas = 3000000)
-  const logan = new Persona(temperatura = 36, cantidadCelulas = 3500000)
+  const frank = new Persona(temperatura = 36, cantidadCelulas = 3000000, const sangreFrank = new Sangre(grupo = a, factor = negativo))
+  const logan = new Persona(temperatura = 36, cantidadCelulas = 3500000, const sangreLogan = new Sangre(grupo = r, factor = positivo))
 
   method initialize() {
     frank.contraerEnfermedad(malaria800)
@@ -77,10 +82,10 @@ describe "Dr Casa - Temporada 2" {
   const lupus10000 = new EnfermedadAutoinmune(cantidadCelulasAmenazadas = 10000)
   const lupus15000 = new EnfermedadAutoinmune(cantidadCelulasAmenazadas = 15000)
 
-  const frank = new Persona(temperatura = 36, cantidadCelulas = 3000000)
-  const logan = new Persona(temperatura = 36, cantidadCelulas = 3500000)
-  const cameron = new Medico(dosis = 10, temperatura = 36.5, cantidadCelulas = 3100000)
-  const house = new JefeDeDepartamento(temperatura = 36.5, cantidadCelulas = 3100000)
+  const frank = new Persona(temperatura = 36, cantidadCelulas = 3000000, const sangreFrank = new Sangre(grupo = a, factor = negativo))
+  const logan = new Persona(temperatura = 36, cantidadCelulas = 3500000, const sangreLogan = new Sangre(grupo = r, factor = positivo))
+  const cameron = new Medico(dosis = 10, temperatura = 36.5, cantidadCelulas = 3100000, const sangreCameron = new Sangre(grupo = a, factor = negativo))
+  const house = new JefeDeDepartamento(temperatura = 36.5, cantidadCelulas = 3100000, const sangreHouse = new Sangre(grupo = a, factor = negativo))
 
   method initialize() {
     frank.contraerEnfermedad(malaria800)
@@ -128,5 +133,23 @@ describe "Dr Casa - Temporada 2" {
     house.atenderA(cameron)
 
     assert.equals(14700, lupus15000.cantidadCelulasAmenazadas())
+  }
+}
+
+describe "Dr Casa - Temporada 3" {
+  const foreman = new Persona(temperatura = 36, cantidadCelulas = 3000000, const sangreForeman = new Sangre(grupo = a, factor = negativo))
+  const logan = new Persona(temperatura = 36, cantidadCelulas = 3500000, const sangreLogan = new Sangre(grupo = r, factor = positivo))
+  const cameron = new Medico(dosis = 10, temperatura = 36.5, cantidadCelulas = 3100000, const sangreCameron = new Sangre(grupo = a, factor = negativo))
+  const house = new JefeDeDepartamento(temperatura = 36.5, cantidadCelulas = 3100000, const sangreHouse = new Sangre(grupo = a, factor = negativo))
+  test "Cameron le intenta donar a House 1100 células" {
+    assert.throwsException({cameron.donarA(house, 1100)})
+  }
+
+  test "Logan intenta donarle todo lo que puede a foreman" {
+    assert.throwsException({logan.donarA(foreman, logan.cantidadCelulas())})
+  }
+
+  test "Foreman le intenta donar a Cameron 3000 células" {
+    assert.doesNotThrowException({foreman.donarA(cameron, 3000)})
   }
 }
