@@ -22,13 +22,13 @@ class Micro {
             self.otorgarLugar(persona)
         }
         else {
-            self.error("No se puede subir a la persona")
+            throw new Exception(message = "No se puede subir a la persona")
         }
     }
 
     method bajar(persona) {
         if (self.estaVacio()) {
-            self.error("No hay nadie para bajar")
+            throw new Exception(message = "No hay nadie para bajar")
         }
         else {
             self.liberarLugar(persona)

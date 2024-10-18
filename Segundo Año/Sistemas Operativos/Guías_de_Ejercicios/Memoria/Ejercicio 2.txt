@@ -1,0 +1,7 @@
+mp = 256 KiB
+dl = 20 bits
+pag = 4KiB
+
+pareceria que el tamaño máximo de un programa sería de 2^20 bytes, es decir 1 MiB, pero como la mp es de 256KiB, este sería el máximo de un programa, más allá de que el direccionamiento lógico sea de 20 bits
+
+fragmentación externa no tiene por ser paginación, y fragmentación interna puede tener únicamente en la última página, por ende la cantidad máxima de bytes sería de 4KiB - 1

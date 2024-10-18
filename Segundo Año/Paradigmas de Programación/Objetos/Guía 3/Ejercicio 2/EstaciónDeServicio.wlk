@@ -1,3 +1,4 @@
+// Ejercicio%202/Estaci%C3%B3nDeServicio.wlk
 class EstacionDeServicio {
     const dispositivo1
     const dispositivo2

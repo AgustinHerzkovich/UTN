@@ -1,0 +1,15 @@
+20000h: 10 | 0000 0000 0000 0000
+Segmento 2, Desplazamiento 0
+Escribe en 1B800h
+
+10000h: 01 | 0000 0000 0000 0000
+Segmento 1, Desplazamiento 0
+Error de permisos
+
+0BEEFh: 00 | 1011 1110 1110 1111
+Segmento 0, Desplazamiento BEEF
+Error de permisos y Segmentation Fault porque BEEF > 0ABCD
+
+00ACEh: 00 | 0000 1010 1100 1110
+Segmento 0, Desplazamiento 0ACE
+Error de permisos

@@ -1,0 +1,12 @@
+8 pags, 1024 bytes c/u, mp de 32 frames
+
+nro pag la represento con 3 bits (2^3 = 8)
+tam pag lo reprento con 10 bits (2^10 = 1024)
+
+entonces la DL me ocupa 3 + 10 bits = 13 bits
+
+la DF la represento con nro marco(2^5 = 32) y desplazamiento(2^10 = 1024)
+
+entonces la DF me ocupa 5 + 10 bits = 15 bits
+
+DL <= DF

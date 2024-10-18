@@ -1,4 +1,6 @@
-// Ejercicio%203/Comederos.wlk
+// Ejercicio%202/Comederos.wlk
+// Ejercicio%202/Comederos.wlk
+// Ejercicio%202/Comederos.wlk
 class ComederoNormal {
     const cantidadComida
     const limitePeso
