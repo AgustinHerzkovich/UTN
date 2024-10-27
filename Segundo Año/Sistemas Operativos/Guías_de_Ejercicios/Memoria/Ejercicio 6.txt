@@ -1,0 +1,13 @@
+a) 2^16 = 2^6 * 2^10 = 64KiB, la memoria física es de 32KiB, pero tenemos memoria virtual, entonces la cantidad máxima de páginas es 64 KiB / 0.5KiB = 128 páginas
+
+b) TP: Frame | Bit P | Bit M | Ult ref | Permisos
+
+Bitmap: tamaño = 128 bits
+
+c)	A 		B 		C
+0 	0 		1 		-
+1 	3 		- 		6
+2 	4 		7 		-
+3 	- 		- 		5
+4 	- 		- 		8
+5 	- 		-		2	

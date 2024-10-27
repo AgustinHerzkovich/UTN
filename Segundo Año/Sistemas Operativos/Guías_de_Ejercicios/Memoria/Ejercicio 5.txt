@@ -1,0 +1,1 @@
+1 Mib = 2^20 => Tamaño mínimo = 20 bits
