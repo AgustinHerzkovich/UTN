@@ -1,25 +1,32 @@
 object agricultor {
-    var parcela = null
+    const parcelas = []
+    const cultivos = []
 
     method comprarParcela(unaParcela) {
-        parcela = unaParcela
+        parcelas.add(unaParcela)
     }
 
-    method sembrar() {
-        parcela.aumentarCultivoEnParcela()
+    method sembrar(unaParcela) {
+        unaParcela.aumentarCultivoEnParcela()
+        cultivos.add(unaParcela.cultivo())
     }
 
-    method cosechar(unosKilos) {
-        parcela.disminuirCultivoEnParcela()
-        parcela.subirCultivoEnSilo(unosKilos)
+    method cosechar(unaParcela, unosKilos) {
+        unaParcela.disminuirCultivoEnParcela()
+        unaParcela.subirCultivoEnSilo(unosKilos)
     }
 
-    method vender(unosKilos) {
-        parcela.bajarCultivoEnSilo(unosKilos)
+    method vender(unaParcela, unosKilos) {
+        unaParcela.bajarCultivoEnSilo(unosKilos)
     }
 
-    method cambiarCultivo(nuevoCultivo) {
-        parcela.cambiarCultivo(nuevoCultivo)
+    method cambiarCultivo(unaParcela, nuevoCultivo) {
+        unaParcela.cambiarCultivo(nuevoCultivo)
     }
 
+    method cultivos() = cultivos.withoutDuplicates()
+
+    method parcelaQueMasFacturoEn(fecha1, fecha2) = parcelas.max{parcela => parcela.facturacionEnRango(fecha1, fecha2)}
+
+    method tieneAlgunaParcelaSubutilizada() = parcelas.any{parcela => parcela.estaSubutilizada()}
 }

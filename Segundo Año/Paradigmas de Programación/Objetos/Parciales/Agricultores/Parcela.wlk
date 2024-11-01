@@ -7,10 +7,13 @@ class Parcela {
     var cantidadCultivoEnParcela
     var cantidadCultivoEnSilo
     const registroVentas = []
+    const capataz
 
     method costoCultivo() = self.costoPorHectarea() * cantidadCultivoEnParcela
 
     method costoPorHectarea() = cultivo.costoPorHectarea(self) 
+
+    method cultivo() = cultivo
 
     method precioPorKg() = cultivo.precioPorKg(self)
 
@@ -19,11 +22,11 @@ class Parcela {
     }
 
     method disminuirCultivoEnParcela() {
-        cantidadCultivoEnParcela -= 1
+        cantidadCultivoEnParcela = 0
     }
 
     method subirCultivoEnSilo(unaCantidad) {
-        cantidadCultivoEnSilo += unaCantidad
+        cantidadCultivoEnSilo += cultivo.kilosPorHectareaCultivada(unaCantidad)
     }
 
     method bajarCultivoEnSilo(unaCantidad) {
@@ -45,9 +48,23 @@ class Parcela {
 
     method cantidadCultivoEnParcela() = cantidadCultivoEnParcela
 
-    method registrarVenta(unaFecha, unCultivo, kilos, unComprador) {
-        registroVentas.add(new Venta(fecha = unaFecha, cultivo = unCultivo, cantidadKilos = kilos,comprador = unComprador))
+    method vender(cantidadKilos, comprador, fecha) {
+        capataz.vender(cultivo, cantidadKilos, comprador, fecha, self)
+    }
+
+    method registrarVenta(unaFecha, unCultivo, kilos, unComprador, precioVenta) {
+        self.validarVentaNoExcesiva(kilos)
+        registroVentas.add(new Venta(fecha = unaFecha, cultivo = unCultivo, cantidadKilos = kilos, comprador = unComprador, precio = precioVenta))
+        self.bajarCultivoEnSilo(kilos)
+    }
+
+    method facturacionEnRango(fecha1, fecha2) = registroVentas.filter{venta => venta.estaEntre(fecha1, fecha2)}.sum{venta => venta.precio()}
+
+    method estaSubutilizada() = cantidadCultivoEnParcela < tamanio / 2
+
+    method validarVentaNoExcesiva(kilos) {
+        if (kilos > cantidadCultivoEnSilo) {
+            throw new DomainException(message = "No hay suficiente cultivo en el silo")
+        }
     }
 }
-
-
