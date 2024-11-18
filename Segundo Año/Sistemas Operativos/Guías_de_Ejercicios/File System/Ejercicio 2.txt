@@ -1,0 +1,7 @@
+a) Espacio máximo teórico = 2^12 * 2^13 = 2^25 = 32MiB
+
+b) Podría pasar a un FAT16 o bien incrementar el tamaño de clusters.
+
+c) 
+	1. Pasar a un FAT16.
+	2. Incrementar el tamaño de clusters.

@@ -1,0 +1,7 @@
+a) Tendría tantas entradas como clusters: 8 GiB/4 Kib = 2^33 / 2^12 = 2^21 entradas o clusters
+
+b) tamaño FAT = 2^21 entradas * 32 bits (4 bytes) = 2^21 * 2^2 = 2^23 = 8MiB
+
+porcentaje del disco ocupado = (8 MiB / 8GiB) * 100 = (2^23 / 2^33) * 100 = 0.097%
+
+c) De 28 entradas posibles estoy utilizando 21, por lo cual desperdicio 7 bits.

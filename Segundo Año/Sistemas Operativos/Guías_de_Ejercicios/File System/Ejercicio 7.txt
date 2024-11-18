@@ -1,0 +1,7 @@
+Cantidad punteros por bloque = 1KiB / 4B = 2^10/2^2 = 2^8 = 256 punteros
+
+a) 12 * 1KiB = 12KiB
+
+b) 12 * 1KiB + 256 * 1KiB = 268KiB
+
+c) 12 * 1KiB + 256 * 1KiB + (256)^2 * 1KiB + (256)^3 * 1KiB = 12 * 2^10 + 2^8 * 2^10 + 2^16 * 2^10 + 2^24 * 2^10 = 12 * 2^10 + 2^18 + 2^26 + 2^34 = 12KiB + 256KiB + 64MiB + 16GiB = aprox 16GiB

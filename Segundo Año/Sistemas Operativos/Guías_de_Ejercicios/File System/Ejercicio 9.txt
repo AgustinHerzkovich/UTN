@@ -1,0 +1,9 @@
+cantidad punteros = 4KiB/8B = 2^12/2^3 = 2^9 = 512 punteros
+
+a) los bloques tiene 4KiB, para leer el byte 16777227 debo acceder al bloque: 16777227/2^12 = 4096,002... es decir ya pasó al 4097avo bloque. Como contamos desde el 0 inclusive, sería el bloque 4096.
+Identifico dónde cae el bloque 4096:
+12 punteros directos = bloque 0 al 11
+1 puntero indirecto simple = bloque 12 al 523(512 + 12 - 1)
+1 puntero indirecto doble = bloque 524 al 262667(512^2 + 524 - 1)
+
+El bloque me cae en el último rango, por lo que tendría que acceder primero al bloque de punteros indirectos dobles, luego con eso voy al bloque de punteros indirectos simple y de ahí voy al bloque de datos 4096, por lo que serían 3 accesos a bloques.

@@ -1,0 +1,8 @@
+a) tam cluster = 2^32 / 2^16 = 2^16 = 64KiB
+
+b) si tengo bloques o clusters de 64KiB, el archivo de 1KiB me ocupa un cluster, el de 20KiB me ocupa un cluster y el de 1MiB me ocupa 16 clusters (2^20 / 2^16), entonces el espacio en disco que ocupa cada uno es:
+Archivo 1KiB ocupa 64KiB en disco (frag interna)
+Archivo 20KiB ocupa 64KiB en disco (frag interna)
+Archivo 1MiB ocupa 16 * 64KiB = 1 MiB en disco
+
+c) Fragmentación interna.

@@ -1,0 +1,20 @@
+a) Utilizaría softlink, lo cual me permite pasar de un volumen a otro fácilmente sin que deje de funcionar el link, y con este softlink lo que haría es apuntar a la versión configurada, luego si la quiero cambiar simplemente cambio el archivo al que apunta.
+
+b) 2, el archivo original y el softlink, ambos con un inodo distinto.
+
+c) podría utilizarse tanto softlink como hardlink, si se usase hardlink tendría que sumar la referencia del . y el ..
+
+d) 
+	i) El softlink deja de funcionar porque se eliminó la entrada de directorio a la que apunta su inodo.
+
+	ii) Se elimina el softlink, pero el archivo original sigue existiendo con su propio inodo.
+
+	iii) Se estaría eliminando definitavemente el archivo, de hecho ya se eliminó definitavemente en el punto i, sólo que aquí se elimina también el softlink que lo apuntaba, el cual quedaría inútil si se elimina el archivo original.
+
+e) 
+	i) El contenido del archivo original sigue estando disponible, la única diferencia es que ahora el inodo tiene una referencia menos.
+
+	ii) Lo mismo que arriba, al ser hardlink, se tienen dos referencias al mismo inodo, por lo que si se borra una, la otra sigue estando y el contenido aún puede ser accedido.
+
+	iii) Se pierde el contenido definitivamente, referencias = 0.
+

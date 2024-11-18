@@ -1,0 +1,10 @@
+Tam archivo = Tam Fs por ser FAT
+
+a) máximo teórico = 2^28 * 2^10 = 2^38 = 256GiB
+Al ser más chico que 512GiB:
+máximo real = máximo teórico = 256GiB
+
+
+b) máximo teórico = 2^28 * 2^12 = 2^40 = 1TiB
+Al ser más grande que 512GiB:
+máximo real = 512GiB

@@ -1,0 +1,3 @@
+cantidad punteros = 4KiB/8B = 2^12/2^3 = 2^9 = 512
+
+10 * 4KiB + 2 * (512)^2 * 4KiB + 2 * (512)^3 * 4KiB = 40KiB + 2 * 2^18 * 2^12 + 2 * 2^27 * 2^12 = 40KiB + 2^31 + 2^40 = 40KiB + 2GiB + 1TiB = aprox 1 TiB de espacio direccionable teórico, y al ser más chico que 10TiB, es también el real.

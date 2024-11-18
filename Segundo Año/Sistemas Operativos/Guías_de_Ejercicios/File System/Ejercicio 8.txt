@@ -1,0 +1,9 @@
+Cantidad punteros = 1KiB/8B = 2^10/2^3 = 2^7 = 128 punteros
+
+a) 1 puntero indirecto simple direcciona 128 * 1KiB = 128 KiB no alcanza
+1 puntero indirecto doble direcciona (128)^2 * 1KiB = 2^14 * 2^10 = 2^24 = 16Mib no alcanza
+1 puntero indirecto triple direcciona (128)^3 * 1KiB = 2^21 * 2^10 = 2^31 = 2GiB alcanza y sobra
+
+cantidad mínima = 1 puntero indirecto triple
+
+b) No sería eficiente, ya que cada archivo debería almacenarse en bloques de 2GiB, por lo cual hay mucha fragmentación interna.
