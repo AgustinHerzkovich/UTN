@@ -1,0 +1,23 @@
+el título y el abstract definen si el lector está realmente interesado por el artículo y si procede a leerlo o no.
+
+1.título: el título debe ser corto, claro y conciso, para que el lector sepa de que trata el paper sólo con leerlo.
+
+2.abstract: el abstract es un resumen del paper que contiene todos los temas que se abarcan en él, y debe tener entre 100 y 250 palabras.
+
+3.introducción: la introducción presenta el tema que se va a desarrollar, la problemática que se investiga, contexto, investigaciones previas, antecedentes, preguntas de investigación (pueden o no estar explícitas), propósitos de investigación. Responde el qué.
+
+4.métodos y materiales: describe los métodos utilizados para obtener el conocimiento de la investigación, materiales y herramientas. La metodología da la validez científica, sirve para el escrutinio académico y corrobar si la metodología es válida. Responde el cómo.
+
+5.resultados: resultados obtenidos de la investigación, utilizando gráficos e imágenes para mostrar más amenamente lo recolectado. Responde a las preguntas planteadas en la introducción.
+
+6.discusión: interpretación de los resultados. Ponderación y comparación, relación de datos con el contexto y estudios previos. Hay veces que está dentro de la conclusión.
+
+7.conclusión: No debe repetir lo dicho en resultados y discusión. Trata de convencer al lector de la importancia de la investigación y deja algunas sugerencias y recomendaciones (futuras líneas de investigación). Limitaciones del estudio, cosas que no se tomaron en cuenta.
+
+8.reconocimientos: agradecimientos a los que ayudaron en la investigación.
+
+9.apéndices: fotos, gráficos, tablas y figuras.
+
+10.referencias: bibliografías utilizadas bien redactadas.
+
+11.tabla de contenidos: índice.
