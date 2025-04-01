@@ -1,6 +1,8 @@
 LUNES
 	Bases de Datos(8:00hs):
 		https://utn.zoom.us/j/95978009125
+	Comunicación de Datos(10:15hs):
+		https://meet.google.com/yet-wcpj-mcd
 MARTES
 	Bases de Datos(8:30hs):
 		https://utn.zoom.us/j/98140501730
