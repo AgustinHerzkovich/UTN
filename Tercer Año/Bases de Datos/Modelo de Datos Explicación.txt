@@ -1,0 +1,27 @@
+Modelo de datos compuesto por:
+	Entidades maestras: Son necesarias para que el sistema funcione. Asociadas a alta, baja o modificación. Son accedidas por el usuario a través de una vm.
+	Entidades transaccionales: No tienen alta, baja y modificación. Se van cargando los datos en esas tablas a partir de las transacciones que realiza el usuario en el 	sistema.
+
+En el modelo de datos de ejemplo son todas entidades maestras excepto: STOCK, Factura e Item_Factura.
+Dentro de las maestras hay tablas principales y tablas paramétricas.
+
+Las tablas paramétricas se utilizan para parametrizar atributos de otra tabla.
+
+Envases, Rubro y Familia son tablas paramétricas de la tabla principal Producto.
+
+Departamento es una tabla paramétrica de Empleado.
+
+Zona es una tabla paramétrica de Departamento y DEPOSITO.
+
+Composición es una entidad intermedia relacionante entre Producto y Producto, ya que la relación de Producto consigo mismo, es de muchos a muchos, y para romper ese muchos a muchos, se utiliza la entidad Composición. Esto se debe a que un producto puede estar compuesto por muchos productos.
+En STOCK no existe el combo del producto compuesto, sino que existen los componentes de ese producto por separado. Osea que si se tiene combo big mac, que está compuesto por 3 componentes, al vender un combo, se descuentan del stock sus componentes, y no el combo big mac en sí, porque el combo big mac no existe como tal, sino que es un conjunto de componentes.
+
+El jefe del empleado es una relación implícita, esto quiere decir que cada empleado tiene un jefe, que a su vez es empleado que tiene un jefe, y así de forma recursiva hasta llegar al jefe final, el cual en su atributo de jefe dice NULL. Por eso la relación unaria de Empleado.
+
+Cada depósito tiene un empleado a cargo y una zona a la cual pertenece. Un depósito son los distintos lugares donde una empresa puede guardar mercadería. En cada depósito tengo cierto stock de productos.
+
+Dentro de cliente, el clie_vendedor es el empleado que le vende a ese cliente. Algunos empleados pueden ser vendedores o encargados de depósito.
+
+El stock tiene cantidad, punto de reposición (el punto de cantidad en el cual se tiene que solicitar más productos, por ejemplo, si me quedan 10 cantidades de cierto producto, ahí pido reposición, usualmente se pide el stock máximo menos lo que tengo actualmente, para así llenar el stock), stock máximo que es la cantidad máxima que se está dispuesto a tener en ese depósito de ese producto, el detalle y la próxima reposición que es una fecha.
+
+Dentro de una factura tengo elementos unitarios, y a su vez listas de componentes, por eso se separa Item_factura de la entidad Factura. Cada item es el componente de la factura, entonces cada item pertenece a una sola factura, pero cada factura puede tener muchos items. Cada item contiene un producto por eso la relación entre Item_Factura y Producto. En la Factura se incluye el total, por más que sea calculable, dado que calcularlo por cada registro implicaría demasiado costo computacional y en consecuencia una menor performance.
