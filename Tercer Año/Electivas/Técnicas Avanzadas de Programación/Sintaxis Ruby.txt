@@ -38,9 +38,13 @@ class Subclase < Superclase
 # Contenido
 end
 
-- MÓDULOS (traits)
-module Trait
+- MÓDULOS (mixins)
+module Mixin
 # Contenido
+end
+
+class Clase
+include Mixin
 end
 
 - REDEFINICIÓN DE MÉTODO Y SUPER
@@ -53,6 +57,12 @@ acción if condición
 
 - CLOSURES
 { |elemento| acción elemento }
+
+- CADENA DE LINEARIZACIÓN
+objeto.ancestors
+
+- ALIAS
+alias_method :nuevo_nombre, :viejo_nombre # Crea una copia del método pero con otro nombre
 
 - COMENTARIOS
 # Una línea
