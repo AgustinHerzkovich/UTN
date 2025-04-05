@@ -1,0 +1,66 @@
+- CREAR CLASE
+class Nombre
+# Contenido
+end
+
+- MÉTODOS
+def método()
+# Contenido
+end
+
+- CONSTRUCTOR (inicializa los atributos)
+def initialize(atributo1, atributo2, ..., atributoN)
+@atributo1 = atributo1
+@atributo2 = atributo2
+...
+@atributoN = atributoN
+end
+
+- VARIABLES DE INSTANCIA
+@variable
+
+- INSTANCIAR OBJETOS
+objeto = Clase.new(atributo1, atributo2, ..., atributoN)
+
+- ENVIAR MENSAJE
+objeto.metodo(atributos)
+
+- ACCESORES
+attr_* :atributo1, :atributo2, ..., :atributoN
+
+Donde * puede ser:
+. attr_reader: crea solo el getter
+. attr_writer: crea solo el setter
+. attr_accessor: crea ambos
+
+- HERENCIA
+class Subclase < Superclase
+# Contenido
+end
+
+- MÓDULOS (traits)
+module Trait
+# Contenido
+end
+
+- REDEFINICIÓN DE MÉTODO Y SUPER
+def metodoOverrideado
+super + # Contenido
+end
+
+- CONDICIONAL
+acción if condición
+
+- CLOSURES
+{ |elemento| acción elemento }
+
+- COMENTARIOS
+# Una línea
+/* ... */ Multilínea
+=begin ... =end Multilínea
+
+- REPL
+Abrir terminal
+irb
+require_relative 'nombreArchivo' (sin el .rb)
+exit
