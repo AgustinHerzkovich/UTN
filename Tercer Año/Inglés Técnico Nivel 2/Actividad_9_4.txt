@@ -1,0 +1,76 @@
+General group: Pre-reading
+
+1)      Watch the paratext of the AI "Exploring Teamwork in Engineering Education" ( títles, subtitles, source, authors, abstract) and decide: 
+
+a.      What type of text (genre) is it?
+
+b.      Who are the authors? What can you get about their academic background??
+
+c.      Production context: where and when was the text written?
+
+d.     What is the topic of the text?
+
+e.     What would you read the text for? what information do you expect to get?? 
+
+2)       How is the text organized?
+
+3)       What information do you expect to find in each section?
+
+1)
+a. Research article.
+b. Tahsin Chowdhury y Homero Murzi. Su background académico es Virginia Polytechnic Institute and State University. Además se puede ver la cantidad de publicaciones que hicieron y cúantas veces sus trabajos fueron citados. También muestra otros proyectos en los que están trabajando.
+c. Fecha: Julio de 2019. Es importante saber la fecha para saber si sigue vigente o ya es obsoleto. Se puede asumir que fue escrito en Virginia Polytechnic Institute and State University, ya que ambos autores trabajan en el mismo lugar.
+d. El trabajo en equipo en la educación ingenieril. Esta información se obtiene del título
+e. Cómo afecta el trabajo en equipo en la educación de ingeniería y su importancia.
+
+2) Título - introducción - revisión de bibliografía - metodología (recolección y análisis de datos) - resultados (detalle de cada atributo) - conclusión y futuros trabajos - referencias bibliográficas
+
+3) 
+
+Small groups: Reading
+
+
+1) In small groups, read the Abstract, the Introduction section and the Conclusion section, and answer the following questions:
+
+a) Compare the information included in the Abstract and that of the Introduction: what information is repeated? What new information appears in the Introduction section?
+
+b)Find a sentence or phrase that answers this question:  What did the literature review consist of?
+
+c) Underline those sentences in the Conclusion that are repeated in the Introduction section.
+
+2) Now, in the same small group,  read the Methodology section and answer these questions
+
+a) What is the purpose of the Literature Review in this study?
+
+b) Choose one sentence to explain the criteria selection used.
+
+c) Choose one relevant sentence in the Data Collection section.
+
+d) From the Data Analysis section, choose three sentences to explain how the authors analyzed the data collected.
+
+1)
+a.
+ideas abstract: el trabajo en equipo como habilidad clave en ingeniería. No hay acuerdo sobre los atributos para lograr un trabajo en equipo efectivo. Tras recabar información se hallaron 11 atributos.
+ideas intro: el trabajo en equipo como habilidad clave en ingeniería. Problemas complejos que los ingenieros deben resolver. Las universidades deben preparar mejor a sus estudiantes con el trabajo en equipo. No hay acuerdo sobre qué significa el trabajo en equipo, y cómo se enseña. Intentos previos por demostrar la efectividad del trabajo en equipo sin éxito. Se mencionan los trabajos de dónde fue extraída la idea de los 11 atributos mencionados en el abstract, ya que es producto de un rejunte de estudios previos. Se dice el propósito del paper, el cual es marcar aquellos atributos que hacen que el trabajo en equipo sea efectivo en la educación de ingeniería. Pregunta retórica. Pregunta de investigación (Research Question). Propósito del estudio.
+
+ideas comunes: el trabajo en equipo como habilidad clave en ingeniería (la importancia de la investigación), no hay acuerdo sobre los atributos para lograr un trabajo en equipo efectivo (gap of knowledge), la literature review.
+
+b. A systematic review of the literature was conducted and 26 papers were analysed. La frase dice que la revisión de la literatura fue sistemático y abarcó el análisis de 26 artículos.
+
+c. Frases de la conclusión:
+Our study suggests that there is gap in engineering education research on the use of effective teamwork models and also a lack of consensus among engineering instructors on how to effectively teach teamwork skills to engineering students. Haciendo alusión a la falta de consenso en cómo efectivamente enseñar a los estudiantes de ingeniería a trabajar en equipo.
+
+The attributes should not be considered in isolation from one another and each attribute should be holistically considered when trying to establish effective teamwork practices within a team. Haciendo alusión a la importancia de los atributos en conjunto.
+
+2)
+a. In this study a systematic literature review was conducted to identify teamwork attributes that make teamwork effective. Identificar los atributos que hacen que el trabajo en equipo sea efectivo.
+
+b. The selection criteria used to guide the review was to include papers that (i) included the implementation of a teamwork model, (ii) assessed teamwork effectiveness, (ii) that mentioned attributes and characteristics for teamwork to be effective. Los criterios de selección incluyeron solo aquellos artículos que aplicaran un modelo de trabajo en equipo, evaluaran su efectividad y mencionaran atributos o características que lo hicieran efectivo.
+
+c. The major categories of the scholarly papers include (i) Business and Management, (ii) Education, (iii) Engineering Education and (iv) Psychology.
+
+d. "After initially reviewing the abstracts of the papers, we started identifying different aspects of teamwork that we considered were important when developing teamwork skills in engineering students."
+
+" We looked for key words in the scholarly papers which were relevant towards teamwork effectiveness."
+
+"The final step was the synthesis of our systematic review which involved identifying the attributes for an effective team from the scholarly papers."
